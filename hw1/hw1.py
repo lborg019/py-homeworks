@@ -2,7 +2,7 @@ def input():
     # infinite loop
     while True:
         try:
-            cents = int(raw_input("Please enter amount of cents:\n> "))
+            cents = int(raw_input("Please enter amount of cents: (negative quits)\n> "))
         except ValueError:
             print("Not an integer!")
             continue

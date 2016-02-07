@@ -173,17 +173,162 @@ the packet?
 so that $D_{prop}$ equals $D_{trans}$.
 
 **answer**:
-$$D_{prop} = D_{trans}$$
-$$\frac{m}{s} = \frac{L}{R}$$
-$$m=s*\frac{L}{R}$$
-$$m=(2.5*10^{8}meters/sec)(\frac{120\,bits}{56\, kbps})$$
-$$remember: kilo=10^3$$
-$$m=(2.5*10^{8}meters/sec)(\frac{120\,bits}{56*10^3\,bits/sec})$$
-$$m=535714.28\,meters$$
+$D_{prop} = D_{trans}$
+
+$\frac{m}{s} = \frac{L}{R}$
+
+$m=s*\frac{L}{R}$
+
+$m=(2.5*10^{8}meters/sec)(\frac{120\,bits}{56\, kbps})$
+
+$remember: kilo=10^3$
+
+$m=(2.5*10^{8}meters/sec)(\frac{120\,bits}{56*10^3\,bits/sec})$
+
+$m=535714.28\,meters$
 
 
 **P8.**
+
+**a.** When circuit switching is used, how many users can be supported?
+
+**answer:** 20 users
+
+
+**b.** For the remainder of this problem, suppose packet switching is used. Find
+the probability that a given user is transmitting.
+
+**answer:** $p=0.1$
+
+
+**c.** Suppose there are 120 users. Find the probability that at any given time,
+exactly n users are transmitting simultaneously. (Hint: Use the binomial
+distribution.)
+
+**answer:** $${120 \choose n}p^n(1-p)^{120-n}$$
+
+**d.** Find the probability that there are 21 or more users transmitting
+simultaneously
+
+**answer:**
+$$1-\sum_{n=0}^{20}{120 \choose n}p^n(1-p)^{120-n}$$
+Central limit theorem to approximate.
+$X_i$ is the independent random variables. $P(x_i=1)=p$
+
+$$P("21\,users\,or\,more")=1-P(\sum_{j=1}^{120}X_j\leqslant21)$$
+
+$$P(\sum_{j=1}^{120}X_j\leqslant21)=P\left(\frac{\sum_{j=1}^{120}X_j-12}{\sqrt[]{120*0.1*0.9}}\leqslant\frac{9}{\sqrt[]{120*0.1*0.9}}\right)$$
+
+$$\approx P\left(Z\leqslant\frac{9}{3.286}\right)=P(Z\leqslant2.74)=0.997$$
+
+$P$(21 or more users)$\approx0.003$
+
 **P10.**
+
+**Part 1:**
+Assuming no queuing delays, in terms of $d_{i}$, $s_{i}$, $R_{i}$,
+$(i=1,2,3)$, and $L$, what is the total delay ($D_{end-to-end}$) for the packet?
+
+**answer:**
+$length:d_{i}$</br>
+$propagation\,speed: s_{i}$</br>
+$transmission\,rate: R_{i}$</br>
+$total_{end-to-end}\,delay: L$</br>
+
+$$(propagation delay[seconds])Pd_{i}=\frac{d_{i}(meters)}{s_{i}(meters/sec)}$$
+
+$$(transmission\,time[seconds])Tt_{i}=\frac{L(bits/packet)}{R_{i}(bits/sec)}$$
+
+Packet-switch delay: $d_{proci}$ for $i=1,2,3$
+
+$D_{end-to-end}=\sum(Pd_{i}+Tt_{i}+d_{proci})$
+$$D_{end-to-end}=\sum_{i=1}^{3}((\frac{d_i}{s_i})+\frac{L}{R_i}+d_{proci})$$
+
+**Part 2:** Suppose
+now the packet is 1,500 bytes, the propagation speed on all three links is 2.5 ·
+10 8 m/s, the transmission rates of all three links are 2 Mbps, the packet switch
+processing delay is 3 msec, the length of the first link is 5,000 km, the length
+of the second link is 4,000 km, and the length of the last link is 1,000 km. For
+these values, what is the end-to-end delay?
+
+**answer:**
+$L=1500bytes$</br>
+$s=2.5*10^8m/s$</br>
+$R=2Mbps=2097152bps$</br>
+$d_{proc}=3ms$</br>
+$dist_1=5000km$</br>
+$dist_2=4000km$</br>
+$dist_3=1000km$</br>
+
+$$D_{end-to-end}=\sum_{i=1}^3((\frac{d_{i}}{s})+(\frac{L}{R})+d_{proc})$$
+
+$$=[(\frac{dist_1}{s})+(\frac{L}{R})+(d_{proc})]+[(\frac{dist_2}{s})+(\frac{L}{R})+(d_{proc})]+[(\frac{dist_3}{s})+(\frac{L}{R})+(d_{proc})]$$
+
+$$=(\frac{dist_1}{s})+(\frac{dist_2}{s})+(\frac{dist_3}{s})+3(d_{proc})+3(\frac{L}{R})$$
+
+$$=(\frac{5000km}{2.5*10^8m/s})+(\frac{4000km}{2.5*10^8m/s})+(\frac{1000km}{2.5*10^8m/s})+3(3ms)+3(\frac{1500bytes}{2097152bps})$$
+
+$$=(0.02ms)+(0.004ms)+(0.016ms)+3(0.71ms)+3(3ms)$$
+$$=11.314ms$$
+
+Reference [link](http://www.endmemo.com/sconvert/bpsmbps.php)
+
 **P13.**
+
+**answer a.** First packet has queuing delay=0.</br>Second packet has delay: $1*\frac{L}{R}$seconds</br>
+$n^{th}$ packet has delay: $(n-1)\frac{L}{R}$ seconds
+
+Average delay for $N$ packets:
+
+$$\left(\frac{ \frac{L}{R}+2\frac{L}{R}+...+(N-1)\frac{L}{R}}{N}\right)$$
+
+$$=\frac{L}{RN} * (1+2+...+(N-1))$$
+
+$$=\frac{L}{RN} * \frac{N(N-1)}{2}$$
+
+$$=\frac{LN(N-1)}{2RN}$$
+
+$$=\frac{(N-1)L}{2R}$$
+
+**answer b.**
+
+$$\frac{1}{n}\sum_{n=1}^N(n-1)\frac{L}{R}$$
+
+which unwraps into:
+
+$$\frac{L}{R}\frac{1}{N}\sum_{n=0}^{N-1}n=\frac{L}{R}\frac{1}{N}\frac{(N-1)N}{2}=\frac{L}{R}\frac{(N-1)}{2}$$
+
 **P20.**
+
+![title](C:\Users\Owner\Desktop\f-1-20-b.jpg)
+
+**answer:** $Throughput=min[R_s, R_c, \frac{R}{M}]$
+
 **P25.**
+
+**answer a.**
+
+$$R=2Mbps$$
+
+$$2*10^6(bits/sec)* \frac{2000*10^3m}{2.5*10^8bits}=1.6*10^5bits$$
+
+_160,000 bits_
+
+**answer b.**
+
+$$min(BDP, 800000)=BDP.$$
+$$1.6*10^5bits$$
+
+_160,000 bits_
+
+**answer c.** Bandwidth-delay product of a link = maximum amount of bits that can be fit into the link
+
+**answer d.**
+
+$$\frac{20000*10^3m}{1.6*10^5bits}=125m$$
+
+$$125\,meters>football\,field$$
+
+**answer e.**
+
+$$\frac{m}{\frac{m}{s}* R}=\frac{s}{R}$$

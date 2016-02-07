@@ -98,12 +98,12 @@ b) If all traffic comes from the application described and the sum of the applic
 
 **P4.**
 
-![title](C:\Users\Owner\Desktop\f-1-13.jpeg)
+![title](/Users/Luke/Desktop/f-1-13.jpeg)
 
 a) What is the maximum number of simultaneous connections that can be in
 progress at any one time in this network?
 
-![title](C:\Users\Owner\Desktop\p3-a.jpeg)
+![title](/Users/Luke/Desktop/p3-a.jpeg)
 
 4 links, 4 connections each.
 
@@ -112,7 +112,7 @@ $$4*4=16\,connections$$
 b) Suppose that all connections are between switches A and C. What is the
 maximum number of simultaneous connections that can be in progress?
 
-![title](C:\Users\Owner\Desktop\p3-b.jpeg)
+![title](/Users/Luke/Desktop/p3-b.jpeg)
 
 All connections are between A and C.
 
@@ -124,7 +124,7 @@ c) Suppose we want to make four connections between switches A and C,
 and another four connections between switches B and D. Can we route
 these calls through the four links to accommodate all eight connections?
 
-![title](C:\Users\Owner\Desktop\p3-c.jpeg)
+![title](/Users/Luke/Desktop/p3-c.jpeg)
 
 Yes:
 - 4 connections $A \rightarrow D$
@@ -300,7 +300,7 @@ $$\frac{L}{R}\frac{1}{N}\sum_{n=0}^{N-1}n=\frac{L}{R}\frac{1}{N}\frac{(N-1)N}{2}
 
 **P20.**
 
-![title](C:\Users\Owner\Desktop\f-1-20-b.jpg)
+![title](/Users/Luke/Desktop/f-1-20-b.jpg)
 
 **answer:** $Throughput=min[R_s, R_c, \frac{R}{M}]$
 
@@ -332,3 +332,5 @@ $$125\,meters>football\,field$$
 **answer e.**
 
 $$\frac{m}{\frac{m}{s}* R}=\frac{s}{R}$$
+
+#### this homework is powered by $\KaTeX$

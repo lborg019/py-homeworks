@@ -135,6 +135,53 @@ Yes:
 - 2 connections $D \leftarrow C$
 
 **P6.**
+
+**a.** Express the Propagation delay, $D_{prop}$ in terms of $m$ and $s$
+
+**answer:** Distance over Speed cause the propagation delay:
+
+$$D_{prop}(seconds)=\frac{m}{s}$$
+
+
+**b.** Determine the transmission time of the packet, $D_{trans}$, in terms of $L$ and $R$.
+
+**answer:**
+$$D_{trans}(seconds)=\frac{L}{R}$$
+
+**c.** Ignoring processing and queuing delays, obtain an expression for the end-
+to-end delay.
+
+**answer:**
+$$D_{end-to-end}(seconds)=D_{prop}+D_{trans}=\frac{m}{s}+\frac{L}{R}$$
+
+**d.** Suppose Host A begins to transmit the packet at time $t=0$. At time $t=d_{trans}$ ,
+where is the last bit of the packet?
+
+**answer**: $D_{trans}$= time to transmit one entire packet. So, at $t=D_{trans}$ an entire packet as just left A.
+
+**e.** Suppose d prop is greater than d trans . At time $t=D_{trans}$ , where is the first bit of
+the packet?
+
+**answer:** The first bit of the packet is at distance $S * D_{trans}$ because the packet might leave the host while it is transmitted, but transmission delay is the weakest link. You can only go as fast as your weakest link.
+
+**f.** Suppose $D_{prop}$ is less than $D_{trans}$. At time $t=D_{trans}$ , where is the first bit of
+the packet?
+
+**answer:** The first bit of the packet is at the destination. The time it takes for a bit to get from point A to B is less than the time is takes to transmit the whole packet.
+
+**g.** Suppose $S=2.5*10^{8}$, $L=120\,bits$, and $R=56\,kbps$. Find the distance $m$
+so that $D_{prop}$ equals $D_{trans}$.
+
+**answer**:
+$$D_{prop} = D_{trans}$$
+$$\frac{m}{s} = \frac{L}{R}$$
+$$m=s*\frac{L}{R}$$
+$$m=(2.5*10^{8}meters/sec)(\frac{120\,bits}{56\, kbps})$$
+$$remember: kilo=10^3$$
+$$m=(2.5*10^{8}meters/sec)(\frac{120\,bits}{56*10^3\,bits/sec})$$
+$$m=535714.28\,meters$$
+
+
 **P8.**
 **P10.**
 **P13.**

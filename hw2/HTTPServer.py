@@ -1,13 +1,13 @@
 ##########################################################################
-""" TCPServer.py                                     
-Use the better name for this module 
+""" HTTPServer.py                                     
+HTTPServer in Python
   
 [STUDENTS FILL IN THE ITEMS BELOW]  
   STUDENT: Lukas Borges                  
   COURSE NAME: [CNT4713] Netcentric Computing
   SEMESTER: Spring 2016                    
   DATE 02/15/2016                                         
-  DESCRIPTION: This is an HTTP server in python.
+  DESCRIPTION: This is an HTTP server in Python.
 """
 
 from socket import *
@@ -25,10 +25,11 @@ serverSocket.listen(1)
 # output to console that server is listening 
 print ("Magic happens on port 80... ")
 
-while 1:
+#while 1:
     # server waits for incoming requests; new socket created on return
-    connectionSocket, addr = serverSocket.accept()
-     
+connectionSocket, addr = serverSocket.accept()
+ 
+while 1:
     # read a sentence of bytes from socket sent by the client
     sentence = connectionSocket.recv(1024)
 
@@ -45,7 +46,7 @@ while 1:
     print ("Sent back to Client: ", capitalizedSentence)
 	 
     # close the TCP connection; the welcoming socket continues
-    connectionSocket.close()
+    # connectionSocket.close()
 
 
 ##########################################################################

@@ -1,12 +1,22 @@
 ##########################################################################
-"""  TCPClient.py                                     
-Use the better name for this module:   MakeUpperCaseClientUsingTCP   
-  
+"""  HTTPClient.py                                     
+ HTTPServer in Python
+
 [STUDENTS FILL IN THE ITEMS BELOW]  
-  STUDENT NAME                                 
-  COURSE NAME and SEMESTER                    
-  DATE                                         
-  This module will <blah, blah, blah>              
+  STUDENT: Lukas Borges 
+  COURSE NAME: [CNT4713] Netcentric Computing
+  SEMESTER: Spring 2016
+  DATE: 02/15/2016                        
+  DESCRIPTION: This is an HTTP Client in Python
+"""
+
+"""
+lsof -i :80     find the process
+kill -9 <pID>   kill the process
+
+keep connection running:
+https://docs.python.org/release/2.7.10/howto/sockets.html
+
 """
 
 from socket import *
@@ -26,26 +36,27 @@ clientSocket = socket(AF_INET, SOCK_STREAM)
 # open the TCP connection
 clientSocket.connect((serverName,serverPort))
 
-# interactively get user's line to be converted to upper case
-# authors' use of raw_input changed to input for Python 3  Amer 4-2013
-sentence = input('Input lowercase sentence:') # changed it from raw_input
+while 1:
+    # interactively get user's line to be converted to upper case
+    # authors' use of raw_input changed to input for Python 3  Amer 4-2013
+    sentence = raw_input('Input lowercase sentence:') # changed it from raw_input
 
-# send the user's line over the TCP connection
-# No need to specify server name, port
-# sentence casted to bytes for Python 3  Amer 4-2013
+    # send the user's line over the TCP connection
+    # No need to specify server name, port
+    # sentence casted to bytes for Python 3  Amer 4-2013
 
-# modified to run on windows:
-# clientSocket.send(sentence)
-clientSocket.sendto(sentence.encode(),(serverName, serverPort))
+    # modified to run on windows:
+    # clientSocket.send(sentence)
+    clientSocket.sendto(sentence.encode(),(serverName, serverPort))
 
-#output to console what is sent to the server
-print ("Sent to Make Upper Case Server: ", sentence)
+    #output to console what is sent to the server
+    print("Sent to Make Upper Case Server: ", sentence)
 
-# get user's line back from server having been modified by the server
-modifiedSentence = clientSocket.recv(1024)
+    # get user's line back from server having been modified by the server
+    modifiedSentence = clientSocket.recv(1024)
 
-# output the modified user's line 
-print ("Received from Make Upper Case Server: ", modifiedSentence)
+    # output the modified user's line 
+    print("Received from Make Upper Case Server: ", modifiedSentence)
 
 # close the TCP connection
-clientSocket.close()
+# clientSocket.close()

@@ -17,6 +17,13 @@ kill -9 <pID>   kill the process
 keep connection running:
 https://docs.python.org/release/2.7.10/howto/sockets.html
 
+Algorithm:
+    send a string (GET), program the conditional GET
+    get the response
+    get the HTML, CSS and JS files (TCP File transfer)
+    program should work with telnet and browser, only server
+    program should check the modified date of the last file
+
 """
 
 from socket import *

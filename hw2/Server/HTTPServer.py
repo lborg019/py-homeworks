@@ -43,11 +43,13 @@ while 1:
        sentence[4]=='/'):
         print("user sent a GET\n")
         fileName = sentence[5:-2]
+        fileName = fileName.partition(" ")[0]
         print("fileName:", fileName)
       
     # compare this with the dir file list.
     if fileName in fileList:
         print("file found")
+        connectionSocket.send('HTTP/1.1 200 OK\nContent-Type: text/html\n\n')
         # send this file
         i = fileList.index(fileName)
         webFile = open(path+fileList[i], 'rb')
@@ -64,7 +66,7 @@ while 1:
         # send a 404
 
     # send the file
-    connectionSocket.send(sentence)
+    # connectionSocket.send(sentence)
 
     # output to console the sentence sent back to the client 
     # print ("Sent back to Client: ", capitalizedSentence)

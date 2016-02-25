@@ -22,31 +22,38 @@ serverSocket.bind(("",serverPort))
 # server begins listening for incoming TCP requests
 serverSocket.listen(1)
 
+import os
+fileList = os.listdir("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web")
+print(fileList)
+
 # output to console that server is listening 
 print ("Magic happens on port 80... ")
 
-#while 1:
-    # server waits for incoming requests; new socket created on return
-connectionSocket, addr = serverSocket.accept()
- 
 while 1:
-    # read a sentence of bytes from socket sent by the client
+    connectionSocket, addr = serverSocket.accept()
     sentence = connectionSocket.recv(1024)
-
-    # output to console the sentence received from the client 
     print ("Received From Client: ", sentence)
-	 
-    # convert the sentence to upper case
-    capitalizedSentence = sentence.upper()
-	 
-    # send back modified sentence over the TCP connection
-    connectionSocket.send(capitalizedSentence)
+	
+    if(sentence[0]=='G' and
+       sentence[1]=='E' and
+       sentence[2]=='T' and
+       sentence[3]=='/'):
+        print("user sent a GET\n")
+        webFile = sentence[4:]
+        print("webfile:", webFile)
+
+        for webFile in fileList:
+            print("file exists")
+        # compare this with the dir file list.
+
+    # send the file
+    connectionSocket.send(sentence)
 
     # output to console the sentence sent back to the client 
-    print ("Sent back to Client: ", capitalizedSentence)
+    # print ("Sent back to Client: ", capitalizedSentence)
 	 
     # close the TCP connection; the welcoming socket continues
-    # connectionSocket.close()
+    connectionSocket.close()
 
 
 ##########################################################################

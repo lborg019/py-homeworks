@@ -42,9 +42,11 @@ while 1:
         webFile = sentence[4:]
         print("webfile:", webFile)
 
-        for webFile in fileList:
-            print("file exists")
         # compare this with the dir file list.
+        if webFile in fileList:
+            print("file found")
+        else:
+            print("file not found")
 
     # send the file
     connectionSocket.send(sentence)

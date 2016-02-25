@@ -59,7 +59,7 @@ while 1:
             print 'Sending...'
             connectionSocket.send(l)
             l = webFile.read(1024)
-            webFile.close()
+        webFile.close()
             # connectionSocket.shutdown(socket.SHUT_WR)
     else:
         print("file not found")

@@ -21,9 +21,11 @@ serverSocket.bind(("",serverPort))
 
 # server begins listening for incoming TCP requests
 serverSocket.listen(1)
+path = ("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web/")
 
 import os
-fileList = os.listdir("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web")
+# fileList = os.listdir("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web")
+fileList = os.listdir(path)
 print(fileList)
 
 # output to console that server is listening 
@@ -39,14 +41,22 @@ while 1:
        sentence[2]=='T' and
        sentence[3]=='/'):
         print("user sent a GET\n")
-        webFile = sentence[4:]
-        print("webfile:", webFile)
+        fileName = sentence[4:-2]
+        print("fileName:", fileName)
 
         # compare this with the dir file list.
-        if webFile in fileList:
+        if fileName in fileList:
             print("file found")
+            # send this file
+            i = fileList.index(fileName)
+            webFile = open(path+fileList[i], 'rb')
+            l = webFile.read(1024)
+            print(l)
+
+
         else:
             print("file not found")
+            # send a 404
 
     # send the file
     connectionSocket.send(sentence)

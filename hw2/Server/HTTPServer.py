@@ -35,28 +35,33 @@ while 1:
     connectionSocket, addr = serverSocket.accept()
     sentence = connectionSocket.recv(1024)
     print ("Received From Client: ", sentence)
-	
+
     if(sentence[0]=='G' and
        sentence[1]=='E' and
        sentence[2]=='T' and
-       sentence[3]=='/'):
+       sentence[3]==' ' and
+       sentence[4]=='/'):
         print("user sent a GET\n")
-        fileName = sentence[4:-2]
+        fileName = sentence[5:-2]
         print("fileName:", fileName)
-
-        # compare this with the dir file list.
-        if fileName in fileList:
-            print("file found")
-            # send this file
-            i = fileList.index(fileName)
-            webFile = open(path+fileList[i], 'rb')
+      
+    # compare this with the dir file list.
+    if fileName in fileList:
+        print("file found")
+        # send this file
+        i = fileList.index(fileName)
+        webFile = open(path+fileList[i], 'rb')
+        l = webFile.read(1024)
+        print(l)
+        while(l):
+            print 'Sending...'
+            connectionSocket.send(l)
             l = webFile.read(1024)
-            print(l)
-
-
-        else:
-            print("file not found")
-            # send a 404
+            webFile.close()
+            # connectionSocket.shutdown(socket.SHUT_WR)
+    else:
+        print("file not found")
+        # send a 404
 
     # send the file
     connectionSocket.send(sentence)

@@ -23,10 +23,21 @@ serverSocket.bind(("",serverPort))
 serverSocket.listen(1)
 path = ("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web/")
 
-import os
+import os, time
 # fileList = os.listdir("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web")
 fileList = os.listdir(path)
 print(fileList)
+# (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(path)
+# print "last modified: %s" % time.ctime(mtime)
+
+# file I have is older than file user has
+# if(os.stat(path) > )
+#    print("server file is older, no send")
+# else:
+#    print("client file is older, server should send")
+# we print the file modified dates for testing purposes.
+
+
 
 # output to console that server is listening 
 print ("Magic happens on port 80... ")
@@ -36,11 +47,7 @@ while 1:
     sentence = connectionSocket.recv(1024)
     print ("Received From Client: ", sentence)
 
-    if(sentence[0]=='G' and
-       sentence[1]=='E' and
-       sentence[2]=='T' and
-       sentence[3]==' ' and
-       sentence[4]=='/'):
+    if(sentence[0:5]=="GET /"):
         print("user sent a GET\n")
         fileName = sentence[5:-2]
         fileName = fileName.partition(" ")[0]
@@ -64,6 +71,8 @@ while 1:
     else:
         print("file not found")
         # send a 404
+        connectionSocket.send('\n404 Not Found\n');
+        # connectionSocket.send('HTTP/1.1 404 Not Found\nContent-Type: text/html\n\n')
 
     # send the file
     # connectionSocket.send(sentence)

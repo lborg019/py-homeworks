@@ -23,8 +23,11 @@ serverSocket.bind(("",serverPort))
 serverSocket.listen(1)
 # the following variables are going to have to be changed according to test enviro.:
 path = ("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web/")
+cacheHeader = ("If-Modified-Since:")
 
-import os, time
+import os, time, string
+from datetime import datetime as dt
+
 fileList = os.listdir(path)
 print(fileList)
 
@@ -34,6 +37,9 @@ Last-Modified: Thu, 25 Feb 2016 22:59:38 GMT
 Last-Modified: Sun Feb 28 07:42:30 2016
 receive / parse:
 If-Modified-Since: Sun Feb 28 00:34:45 2016
+
+according to python's doc:
+%c = Tue Aug 16 21:30:00 1988
 '''
 
 # output to console that server is listening 
@@ -49,27 +55,50 @@ while 1:
         fileName = sentence[5:-2] # trim GET
         fileName = fileName.partition(" ")[0] # GET file name (index.html)
         print("fileName:", fileName)
-        if("If-Modified-Since:" not in sentence):
-            print("Page is not cached, send")
-        else:
-            # we have to compare it:
-            # continue
-            print("Page is cached, check for 304")
     else:
+        # rest of the code might be dependent on this
         print("Server rejected HTTP method")
       
     # compare this with the dir file list.
     if fileName in fileList:
         print("file found")
 
-        # element in list where file is at
-        i = fileList.index(fileName)
-        # full path with file name
-        filePath = (path+fileList[i]) 
+        # check if page is cached
+        if(cacheHeader not in sentence):
+            print("Page is not cached, send")
+        else:
+            print("Page is cached, perform check:")
+            # trim 'If-Modified-Since' date:
+            cacheIndex = sentence.find(cacheHeader, 0, len(sentence))
+            cacheDate = sentence[cacheIndex:]
+            cacheDate = cacheDate[19:]
+            cacheDate = cacheDate.partition(" GMT")[0]
+            print("CacheDate: ", cacheDate)
+            
+            # element in list where file is at
+            i = fileList.index(fileName)
+            # full path with file name
+            filePath = (path+fileList[i])
+            # calculate last modified:
+            (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(filePath)
+            print("FileDate: ", time.ctime(mtime))
+            
+            # compare the two dates:
+            # convert both strings back to time:
+            # convCacheDate = datetime.strptime(cacheDate, "%c")
+            a = dt.strptime(cacheDate, "%c")
+            b = dt.strptime(time.ctime(mtime), "%c")
+            if(b > a):
+                print("Cache is outdated, resend!")
+            else:
+                print("Cache is current, return 304")
 
-        # calculate last modified:
+            
+
+        # calculate last modified, send
+        i = fileList.index(fileName)
+        filePath = (path+fileList[i])
         (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(filePath)
-        # print "Last-Modified: %s" % time.ctime(mtime)
 
         # send the file with Last-Modified header information:
         connectionSocket.send('HTTP/1.1 200 OK\nContent-Type: text/html\nLast-Modified: %s GMT\n\n' % time.ctime(mtime))

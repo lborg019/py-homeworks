@@ -10,7 +10,19 @@ HTTPServer in Python
   DESCRIPTION: This is an HTTP server in Python.
 """
 
+'''
+send:
+Last-Modified: Sun Feb 28 07:42:30 2016 GMT
+receive / parse:
+If-Modified-Since: Sun Feb 28 00:34:45 2016
+
+according to python's doc, datetime:
+%c = Tue Aug 16 21:30:00 1988
+'''
+
 from socket import *
+import os, time
+from datetime import datetime as dt
 
 # HTTP servers run on port 80
 serverPort = 80
@@ -21,26 +33,12 @@ serverSocket.bind(("",serverPort))
 
 # server begins listening for incoming TCP requests
 serverSocket.listen(1)
-# the following variables are going to have to be changed according to test enviro.:
+# the following variables are going to have to be changed according to test env.:
 path = ("/home/luke/Desktop/Bobadilla/py-netcentric/hw2/Server/web/")
 cacheHeader = ("If-Modified-Since:")
 
-import os, time, string
-from datetime import datetime as dt
-
 fileList = os.listdir(path)
 print(fileList)
-
-'''
-send:
-Last-Modified: Thu, 25 Feb 2016 22:59:38 GMT
-Last-Modified: Sun Feb 28 07:42:30 2016
-receive / parse:
-If-Modified-Since: Sun Feb 28 00:34:45 2016
-
-according to python's doc:
-%c = Tue Aug 16 21:30:00 1988
-'''
 
 # output to console that server is listening 
 print ("Magic happens on port 80... ")
@@ -59,14 +57,12 @@ while 1:
         # rest of the code might be dependent on this
         print("Server rejected HTTP method")
       
-    # compare this with the dir file list.
+    # compare this with the dir file list:
     if fileName in fileList:
         print("file found")
 
-        # check if page is cached
-        if(cacheHeader not in sentence):
-            print("Page is not cached, send")
-        else:
+        # check for caching:
+        if(cacheHeader in sentence):
             print("Page is cached, perform check:")
             # trim 'If-Modified-Since' date:
             cacheIndex = sentence.find(cacheHeader, 0, len(sentence))
@@ -90,28 +86,44 @@ while 1:
             b = dt.strptime(time.ctime(mtime), "%c")
             if(b > a):
                 print("Cache is outdated, resend!")
+                # calculate last modified, send
+                i = fileList.index(fileName)
+                filePath = (path+fileList[i])
+                (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(filePath)
+
+                # send the file with Last-Modified header information:
+                connectionSocket.send('HTTP/1.1 200 OK\nContent-Type: text/html\nLast-Modified: %s GMT\n\n' % time.ctime(mtime))
+
+                webFile = open(path+fileList[i], 'rb')
+                l = webFile.read(1024)
+                print(l)
+                while(l):
+                    print 'Sending...'
+                    connectionSocket.send(l)
+                    l = webFile.read(1024)
+                webFile.close()
             else:
                 print("Cache is current, return 304")
+                connectionSocket.send('HTTP/1.1 304\n')
+        else:
+            print("Page not cached, send anyway")
+            # calculate last modified, send
+            i = fileList.index(fileName)
+            filePath = (path+fileList[i])
+            (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(filePath)
 
-            
+            # send the file with Last-Modified header information:
+            connectionSocket.send('HTTP/1.1 200 OK\nContent-Type: text/html\nLast-Modified: %s GMT\n\n' % time.ctime(mtime))
 
-        # calculate last modified, send
-        i = fileList.index(fileName)
-        filePath = (path+fileList[i])
-        (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(filePath)
-
-        # send the file with Last-Modified header information:
-        connectionSocket.send('HTTP/1.1 200 OK\nContent-Type: text/html\nLast-Modified: %s GMT\n\n' % time.ctime(mtime))
-
-        webFile = open(path+fileList[i], 'rb')
-        l = webFile.read(1024)
-        print(l)
-        while(l):
-            print 'Sending...'
-            connectionSocket.send(l)
+            webFile = open(path+fileList[i], 'rb')
             l = webFile.read(1024)
-        webFile.close()
-            # connectionSocket.shutdown(socket.SHUT_WR)
+            print(l)
+            while(l):
+                print 'Sending...'
+                connectionSocket.send(l)
+                l = webFile.read(1024)
+            webFile.close()
+                # connectionSocket.shutdown(socket.SHUT_WR)
     else:
         print("file not found")
         # send a 404

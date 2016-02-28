@@ -1,4 +1,5 @@
 # Wireshark Lab #
+#### lukas_borges ###
 ### Part I ###
 
 Capturing http://gaia.cs.umass.edu/wireshark-labs/INTRO-wireshark-file1.html packet
@@ -64,4 +65,19 @@ This happened because the file inside the server remains unchanged in comparison
 
 #### 4. HTML Documents with Embedded Objects ####
 
+16) 4 `HTTP GET` request messages to:
+- `wireshark-labs/HTTP-wireshark-file.4html`
+- `/assets/hip/us/hip_us_pearsonhighered/images/pearson_logo.gif`
+- `/~kurose/cover_5th_ed.jpg`
+- `/~kurose/cover_5th_ed.jpg`
+![wshark-16](wshark-16.png)
+
+17) Browser behavior gives it away since the top image loaded before the bottom image. There is no GET message requesting two images at the same time. One GET request for each image and they are satisfied serially.
+
 #### 5. HTTP Authentication ####
+
+![wshark-18](wshark-18.png)
+
+18) `401 Unauthorized`
+
+19) `200 OK`

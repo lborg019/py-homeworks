@@ -277,4 +277,64 @@ TimeOut Interval: $105.54+4*6.73=132.46$
 
 $Timeout Interval_{90}=132.46$
 
+**SampleRTT (115 ms)**:
+EstimatedRTT: $0.875*105.54+0.125*115=106.772$
+DevRTT: $0.75*6.73+0.25*|115-106.772|=7.10$
+TimeOut Interval: $106.772+4*7.10=135.122$
+
+$Timeout Interval_{115}=135.122$
+
 P40.
+
+a.
+[1,6] and [23, 26]
+
+b.
+[6,16] and [17,22]
+
+c.
+Yes, the segment loss after 16th transmission is indicated by triple-duplicate ACK.
+
+d.
+Yes, segment loss after 22nd transmission is indicated by a timeout.
+
+e.
+Initial threshold (segment size threshold) value at the first transmission is 32.
+
+f.
+Threshold value during 18th transmission is 21.
+
+g.
+Threshold value during 24th transmission round is 14 (approx).
+
+h.
+|transmission|packet number|
+|:-:|:-:|
+|1|1|
+|2|2 - 3|
+|3|4 - 7|
+|4|8 - 15|
+|5|16 - 31|
+|6|32 - 63|
+|7|64 - 96|
+
+70th segment is transmitted in the 7th round.
+
+i.
+Threshold value after 26th transmission is 4.
+
+j.
+Threshold value at 19th transmission is 21 and congestion window size is 1.
+
+k.
+Total of 52 packets.
+
+|Transmission Round|Number of Packets|
+|:-:|:-:|
+|17|1|
+|18|2|
+|19|4|
+|20|8|
+|21|16|
+|22|21|
+|total|52|

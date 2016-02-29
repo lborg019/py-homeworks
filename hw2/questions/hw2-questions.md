@@ -127,7 +127,40 @@ Modified TP (mTP):
 
 
 c. No, transport layer only acts in the end systems.
+
 R2.
+a.
+- Sender give delegate the letter along with the address of the destination's house and the name of the recipient.
+- Delegate writes recipient's name is written on top of the letter.
+- Letter is put into an envelope. Destination's house address is written by the delegate.
+- Delegate passes letter to the planet's mail service.
+- Receiver accepts letter from delegate. Envelope is opened and recipient's name written on top is stored.
+- Delegate hand overs the letter according to the family name written on top.
+
+b.
+No, there is no need for the mail service to open the envelope and examine address. Envelope is opened by the delegate. Recipient's name written on top is noticed in order to deliver accordingly.
+
 R14.
+|statement|answer|
+|:-:|:-:|
+|a|False|
+|b|False|
+|c|True|
+|d|False|
+|e|True|
+|f|False|
+|g|False|
+
 R15.
+a.
+first segment `SEQNUM = 90`
+second segment `SEQNUM = 110`
+data in first segment: $110-90=20\,bytes$
+
+b.
+90 is the segment number of the first segment.
+
 R17.
+TCP shares Rate $\frac{R}{2}\,bps$ to each TCP connection
+
+#### Problems: ####

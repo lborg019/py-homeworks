@@ -24,7 +24,17 @@ R11.
 HTTP, FTP, SMTP and POP3 all require reliable data transfer. TCP provides schemes for data loss and corruption, while UDP works with a best-effort policy. Basic implementations of UDP do not guarantee information integrity, so important for the listed protocols.
 
 R14.
-Easily done with Firefox developer tools (edit and resend header options)
+_telnet was not working as I expected, so I used Firefox developer tools instead:_
+first request
+![r14](r14.png)
+
+after selecting `Edit and Resend`, I manually edited the header:
+![r14-2](r14-2.png)
+
+this is the response:
+![r14-3](r14-3.png)
+
+Works as proposed.
 
 R25.
 1. Messaging

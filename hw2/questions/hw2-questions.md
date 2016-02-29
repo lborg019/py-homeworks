@@ -164,3 +164,117 @@ R17.
 TCP shares Rate $\frac{R}{2}\,bps$ to each TCP connection
 
 #### Problems: ####
+P1.
+|prompt|connection|source port|destination port|
+|:-:|:-:|:-:|:-:|
+|a|A $\rightarrow$ S|467|23|
+|b|B $\rightarrow$ S|513|23|
+|c|S $\rightarrow$ S|23|467|
+|d|S $\rightarrow$ B|23|513|
+
+e.
+Yes, because IP addresses are also included.
+
+f.
+No, the server uses IP addresses to distinguish between hosts.
+
+P3.
+_part 1:_
+first byte: `0101 0011`
+second byte: `0110 0110`
+third byte: `0111 0100`
+
+first + second:
+`0101 0011`+
+`0110 0110`
+\___________
+`1011 1001` (first sum)
+
+first sum + third byte
+`1011 1001` +
+`0111 0100`
+\___________
+wrap around: `(1) 0010 1101` (second sum)
+`1`
+\___________
+Total Sum: `0010 1110`
+Checksum: `1101 0001`
+
+1s complement of: `0010 1110 = 1101 0001`
+Same as Checksum.
+
+_part 2:_ When the 1's complement of sum is performed, resultant will be the checksum. Receiving host uses the checksum so check for errors.
+
+_part 3:_ At receiving end, all bytes (including checksum) are added. Receiver looks at the checksum to for errors. If the sum contains all 1s, no errors. If there is at least one 0 bit, there is an error.
+
+_part 4:_ All one-bit errors will be detected. Two bit errors can be undetected since they could end up complementing each others' value.
+
+P26.
+a.
+MSS $= 536$ bytes
+TCP sequence number field $ = 4$ bytes
+
+$=4 * 8 = 32\,bits = 2^{32}$
+Maximum file size that can be sent is given by how many bytes can be represented by $2^{32}$
+
+$=2^2*2^{30}$ bytes
+$=2^2$ Gbytes or $4$ Gbytes
+
+b.
+Number of Segments $=\frac{2^{32}}{536}=801299$
+Number of bytes in each segment $=66$
+Total number of bytes sent over the 155Mbps link $=8012999*66$ bytes
+$=528857934$ bytes $= 4.824*10^9$ bytes
+
+time it takes:
+$$\frac{4.824*10^9*8\,bits}{155*10^6\,bps}$$$$\approx249 seconds$$
+
+P27.
+
+a.
+`SEQNUM` = `SEQNUM` of first segment + number of bytes of data in first segment
+$127 + 80 = 207$
+Source port: 302
+Destination port: 80
+
+b.
+Acknowledgement number: 207
+Source port: 80
+Destination port: 302
+
+c.
+Acknowledgement number: 127
+Because the receive is waiting for 127 bytes of upcoming data.
+
+d.
+![p27](p27.png)
+Even though ACK 207 is loss, when Host A receives ACK 247, it knows that packet 207 was received.
+
+P31.
+- EstimatedRTT $=(1-\alpha)*EstimatedRTT + \alpha*SampleRTT$
+- DevRTT = $(1-\beta)*DevRTT+\beta*|SampleRTT-EstimatedRTT|$
+- Timeout Interval $=EstimatedRTT+4*DevRTT$
+
+**First sample (106 ms)**:
+EstimatedRTT: $0.875*100+0.125*106=100.75$
+DevRTT: $0.75*5+0.25*5.25=5.06$
+TimeOut Interval: $100.75+4*5.06=120.99$
+
+**Second sample (120 ms)**:
+EstimatedRTT: $0.875*100+0.125*120=103.156$
+DevRTT: $0.75*5.06+0.25*16.84=8$
+TimeOut Interval: $103.156+4*8=135.156$
+
+**Third sample (140 ms)**:
+EstimatedRTT: $0.875*103.156+0.125*140=107.761$
+DevRTT: $0.75*8+0.25*32.239=14.05$
+TimeOut Interval: $107.761+4*14.05=163.961$
+
+**Fourth sample (90 ms)**:
+EstimatedRTT: $0.875*107.761+0.125*90=105.54$
+DevRTT: $0.75*14.05+0.25*(-15.54)=6.73$
+TimeOut Interval: $105.54+4*6.73=132.46$
+
+$Timeout Interval_{90}=132.46$
+
+P40.

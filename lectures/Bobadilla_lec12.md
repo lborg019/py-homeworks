@@ -85,8 +85,49 @@ D(v) = min( D(v), D(w) + c(w,v) )
 /* new cost to v is either old cost to v or known
 least path cost to w plus cost from w to v */ until N’= N
 ```
+We compare old path with new path until all nodes are N'
+
+_step 1:_
+$$D(v)=min(D(v), D(w)+C(w,v))$$$$D(w)=min(D(w), D(x)+C(x,w))$$ $$=5, (1+3)$$ $$D(y)=min(D(y), D(x)+C(x,y))$$ $$=\infty, (1+1)$$
+_step 2:_
+$$D(w)=min\{D(w), D(y)+C(y,w)\}$$ $$=4,(2+1)$$ $$D(z)=\{D(z), C(y,z)+D(y)\}$$ $$=\infty, (2+2)$$
+_step 3:_
+$$D(w)=min\{D(w), D(v)+C(v,w)\}$$ $$=3,(2+3)$$
+_step 4:_
+$$D(z)min\{D(z), D(w)+C(w,z)\}$$ $$=4,(3+5)$$
 
 |step| $N'$| $D(v),P(v)$|$D(w),P(w)$|$D(x),P(x)$|$D(y),P(y)$|$D(z),P(z)$|
 |:--:|:---:|:----------:|:---------:|:---------:|:---------:|:---------:|
 |0   |  U  |   2,U      |  5,U      |  1,U      | $\infty$  |  $\infty$ |
-|1   |  Ux |   2,U      |  4,X      |  1,U      | 2,X       |  $\infty$ |
+|1   |  UX |   2,U      |  4,X      |  1,U      | 2,X       |  $\infty$ |
+|2   | UXY |   2,U      |  3,Y      |  1,U      | 2,X       |  4,Y      |
+|3   |UXYV |   2,U      |  3,Y      |  1,U      | 2,X       |  4,Y      |
+|4   |UXYVW|   2,U      |  3,Y      |  1,U      | 2,X       |  4,Y      |
+|5   |UXYVWZ|  2,U      |  3,Y      |  1,U      | 2,X       |  4,Y      |
+
+Shortest path tree:
+```ruby
+V-U-X-Y-Z
+      |
+      W
+```
+
+Distance Vector Algorithm
+Bellman-Ford equation (dynamic programming)
+
+$$d_x(y) = cost-of-least-cost path from x to y$$
+x = cost of neighbor
+d= cost from neighbor to destination y
+
+min goes over all neighbors of x
+
+$$
+dv(z) = 5
+dx(z) = 3
+dw(z) = 3
+
+dv(z)=min\{c(u,x)+d_x(z), c(u,v)+d_v(z), c(u,w)+d_w(z)\}
+=\{1+3, 2+5, 5+3\}
+$$
+
+$$d_x(y)=min\{(x,v)+d_v(y)\}$$

@@ -1,4 +1,8 @@
-# Lecture 3 #
+---
+title: Netcentric Lecture 3
+
+summary: layered protocols, tcp/ip, ISO/OSI model
+---
 
 ## Layered Protocols ##
 Pros
@@ -99,13 +103,16 @@ Most security issues should be solved at the Application level because it's
 more maleable than other layers
 
 ---
-# Summary #
+
+#Summary#
+
 Up until now:
 
 - Communication Media (UTP, wireless, fiber)
 - Internet is a network of networks
 - Performance metrics (delay, throughput, loss rate)
 - Protocol Layers ISO/OSI (7 layers), TCP/IP (5 layers)
+
 ---
 
 # Chapter 2 #

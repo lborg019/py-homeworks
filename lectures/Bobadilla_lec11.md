@@ -27,7 +27,9 @@ Data = 3980 bytes
 |3|1020|20|1040|x|0|370|
 
 #### IP Addresses ####
+
 ![f-4-15](f-4-15.png)
+
 **3 subnets:** they can physically reach each other, without going through a router.
 **Interface:** connection between host/router and physical, link layers.
 
@@ -48,7 +50,9 @@ The first 20 bits mean the subnet.
 ![f-4-18](f-4-18.png)
 
 #### Network Address Translation ####
+
 Increases the amount of IP addresses from subnetting
+
 ![f-4-22](f-4-22.png)
 
 There are a few necessary corrections to NAT

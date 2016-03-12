@@ -22,9 +22,8 @@ Fairness goal: If $K$ TCP sessions $S$ have some bottleneck link $R$, they shoul
 Apps can open multiple parallel connections between two hosts (web browser)
 
 $R$ has $9$ existing connections
+
 - new app asks for 1 TCP and gets $\frac{R}{10}$
-
-
 - new app asks for 11 TCPs, gets $\frac{11R}{20}$
 
 ### Transport Layer Summary ###

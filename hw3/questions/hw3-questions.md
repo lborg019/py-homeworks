@@ -174,9 +174,115 @@ No. From the advertisement, $D$ can reach $z$ in 11 hops by using the path throu
 #### Problems: ####
 
 **P7.**
+
+a. No, there is no way to forward both packets through the switch at the same time. Shared bus means only one packet can be transferred at a single time over the bus.
+
+b. Yes. forwarding two packets to two different output ports at the same time is possible using crossbar switch fabric.
+
+c. No. Crossbar switch does not allow packets to be forwarded at the same time to the same output ports.
+
 **P10.**
+
+a)
+
+| Prefix Match        | Link Interface |
+| :----------------   | :------------- |
+| `11100000 00`       |       0        |
+| `11100000 01000000` |       1        |
+| `1110000`           |       2        |
+| `11100001 1`        |       3        |
+| otherwise           |       3        |
+
+b)
+
+`11001000 10010001 01010001 01010101`<br>
+`11100001 01000000 11000011 00111100`<br>
+`11000001 10000000 00010001 01110111`<br>
+
+- First address prefix matches 5th entry - link interface 3
+- Second address prefix matches 3rd entry - link interface 2
+- Third address prefix matches 4th entry - link interface 3
+
 **P24.**
+
+Paths from $y\rightarrow u$ without repeating nodes:
+
+1. $y \rightarrow x \rightarrow u$
+2. $y \rightarrow w \rightarrow u$
+3. $y \rightarrow x \rightarrow v \rightarrow u$
+4. $y \rightarrow w \rightarrow v \rightarrow u$
+5. $y \rightarrow w \rightarrow x \rightarrow u$
+6. $y \rightarrow x \rightarrow w \rightarrow u$
+7. $y \rightarrow z \rightarrow w \rightarrow u$
+8. $y \rightarrow x \rightarrow w \rightarrow v \rightarrow u$
+9. $y \rightarrow z \rightarrow w \rightarrow v \rightarrow u$
+10. $y \rightarrow w \rightarrow v \rightarrow x \rightarrow u$
+11. $y \rightarrow x \rightarrow v \rightarrow w \rightarrow u$
+12. $y \rightarrow z \rightarrow w \rightarrow x \rightarrow u$
+13. $y \rightarrow w \rightarrow x \rightarrow v \rightarrow u$
+14. $y \rightarrow z \rightarrow w \rightarrow v \rightarrow x \rightarrow u$
+15. $y \rightarrow z \rightarrow w \rightarrow x \rightarrow v \rightarrow u$
+
 **P26.**
+
+- Least-cost path from one node to all other nodes in the network.
+- Iterative
+
+$D(v)$ = least cost of path from source to destination (for node $v$)<br>
+$p(v)$ = previous node along the current path with least cost from source to $v$<br>
+$N'$ = set of nodes
+
+|Step|$N'$   |D(t),p(t)|D(u),p(u)|D(v),p(v)|D(w),p(w)|D(y),p(y)|D(z),p(z)|
+|:---|:------|:--------|:--------|:--------|:--------|:--------|:--------|
+| 0  |x      |$\infty$ |$\infty$ |   3,x   |  6,x    |   6,x   |   8,x   |
+| 1  |xv     |  7,v    |   6,v   |   3,x   |  6,x    |   6,x   |   8,x   |
+| 2  |xvu    |  7,v    |   6,v   |   3,x   |  6,x    |   6,x   |   8,x   |
+| 3  |xvuw   |  7,v    |   6,v   |   3,x   |  6,x    |   6,x   |   8,x   |
+| 4  |xvuwy  |  7,v    |   6,v   |   3,x   |  6,x    |   6,x   |   8,x   |
+| 5  |xvuwyt |  7,v    |   6,v   |   3,x   |  6,x    |   6,x   |   8,x   |
+| 6  |xvuwytz|  7,v    |   6,v   |   3,x   |  6,x    |   6,x   |   8,x   |
+
+Shortest paths from x
+
+| node | path | cost |
+| :--  | :--- | :----|
+|   t  |  xvt |  7   |
+|   u  |  xvu |  6   |
+|   v  |  xv  |  3   |
+|   w  |  xw  |  6   |
+|   y  |  xy  |  6   |
+|   z  |  xz  |  8   |
+
 **P30.**
+
+Least cost path from $w$ to $u$ = 5<br>
+Least cost path from $y$ to $u$ = 6<br>
+
+a)<br>
+$D_x(w)=2$<br>
+$D_x(y)=4$<br>
+$D_x(u)=7$<br>
+
+b) If we drop $c(x,y)$ to a value smaller than 1 we will get a new least cost path from $x$ to $u$. Node $x$ will have to announce to its neighbors.
+
+c) As long as $c(x,y) \geqslant 1$, least cost path from $x$ to $u$ is still going to be 7 (tied with the previous one), so it will not announce any changes.
+
 **P37.**
+
+a) **eBGP**<br>
+b) **iBGP**<br>
+c) **eBGP**<br>
+d) **iBGP**<br>
+
 **P42.**
+
+$W$ can receive from $B$ only:<br>
+Tell $B$: $A\rightarrow W$.<br>
+Tell $C$: $C\rightarrow B \rightarrow A\rightarrow W$
+
+$V$ can receive from $B$ or $C$:<br>
+Tell $B$: $A\rightarrow V$<br>
+Tell $C$: $A\rightarrow V$<br>
+
+$C$ can go to $V$ using $C\rightarrow A\rightarrow V$<br>
+$C$ can go to $W$ and $V$ using $B\rightarrow A\rightarrow W$ and $B\rightarrow A \rightarrow V$

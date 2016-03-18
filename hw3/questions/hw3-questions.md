@@ -486,3 +486,11 @@ Now we'll do:
 $$\frac{bytes}{seconds}=\frac{145577\,bytes}{0.325565\,seconds}$$
 
 $447151.8744 = 447.15$ Kbytes/seconds
+
+### TCP Congestion control ###
+
+13. According to the graph, the slow start phase begins at 0 and ends a little before 0.12 seconds. Then congestion takes over.
+During this small interval, the data transferred is only a small fraction of the window size instead of the ideal 1/3.
+
+14. Screenshot:
+![ws-tcp-14](ws-tcp-14.png)

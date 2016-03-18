@@ -286,3 +286,93 @@ Tell $C$: $A\rightarrow V$<br>
 
 $C$ can go to $V$ using $C\rightarrow A\rightarrow V$<br>
 $C$ can go to $W$ and $V$ using $B\rightarrow A\rightarrow W$ and $B\rightarrow A \rightarrow V$
+
+---
+# Wireshark Lab #
+## Lab 1 ##
+
+### 1. nslookup ###
+
+1. ![ws-1-1](ws-1-1.png)
+`130.54.130.65`
+<br>
+2. ![ws-1-2](ws-1-2.png)
+cambridge university:
+authoritative servers:
+`192.5.4.1` and `2001:500:2e::1`
+3. ![ws-1-3](ws-1-3.png)
+mail.yahoo.com was refused.
+
+### 3. Tracing DNS with Wireshark ###
+
+4. ![ws-3-4](ws-3-4.png)
+Clearly, UDP.
+
+5.
+|message | source    | destination |
+|:------ | :---------| :---------- |
+| query  | 63749     | 53          |
+|response| 53        | 63749       |
+
+6. ![ws-3-6](ws-3-6.png)
+DNS Query message was sent to `75.75.75.75`
+![ws-3-6-1](ws-3-6-1.png)
+Yes, they are the same.
+
+P.S.: `cat /etc/resolv.conf` shows IP address of local DNS server in Unix systems.
+
+7. The message is clearly "type A" (standard host address resource record). No answers.
+
+8. The DNS Type A query has only one response.
+This is the response:
+
+![ws-3-8](ws-3-8.png)
+
+It contains some information, but most importantly, the IP address.
+
+9. ![ws-3-9](ws-3-9.png)
+Yes, the destination address of the following TCP packet matches the IP from the last DNS response.
+`4.31.198.44`
+
+10. No, no additional queries are necessary. All pictures should be accessible from `4.31.198.44`.
+
+11. `53` for query message destination and `53` for query response source.
+
+12. Destination IP: `75.75.75.75`, same as my default local DNS server.
+
+13. DNS Query message is Type A (standard). Query message contains no answers.
+
+14. Three answers provided.
+![ws-3-14](ws-3-14.png)
+
+These are non-authoritative server aliases (canonical names). The last one contains the IP `23.41.11.75`.
+
+15. ![ws-3-11](ws-3-11.png)
+<br>
+16. `75.75.75.75`. Yes it is.
+<br>
+17. Since we specified `-type=NS`, this is a `NS` (name server) query message. No answers.
+<br>
+18. ns1-37.akam.net
+    ns1-173.akam.net
+    use5.akam.net
+    asia1.akam.net
+    usw2.akam.net
+    asia2.akam.net
+    use2.akam.net
+<br>
+19. ![ws-3-19](ws-3-19.png)
+
+
+For this part, links are too old and acting weird.
+I used `nslookup www.mit.edu 8.8.8.8` which is google's public DNS address.
+
+![ws-3-20-1](ws-3-20-1.png)
+
+20. `8.8.8.8`. This is not my local DNS server's address, it corresponds to Google's public DNS.
+
+21. Type A, no answers.
+
+22. Three answers with the canonical names, and one host IP.
+<br>
+23. ![ws-3-23](ws-3-23.png)

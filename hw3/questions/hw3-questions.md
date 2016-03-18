@@ -376,3 +376,66 @@ I used `nslookup www.mit.edu 8.8.8.8` which is google's public DNS address.
 22. Three answers with the canonical names, and one host IP.
 <br>
 23. ![ws-3-23](ws-3-23.png)
+
+---
+
+## Lab 2 ##
+
+### capture trace ###
+
+![ws-tcp](ws-tcp.png)
+
+1. IP address: `10.0.0.13`, port: `49262`
+
+2. IP address: `128.119.245.12` (gaia.cs.umass.edu) port: `80`
+
+3. Source: IP address: `10.0.0.13` port: `49262`
+sends the .txt file to: IP address: `128.119.245.12` port: `80`
+
+### tcp basics ###
+
+4. `Seq = 0`; `[SYN]` flag set to 1
+
+5. `Seq = 0` and `Ack = 1`
+gaia.cs.umass.edu adds 1 to the initial sequence number of `[SYN]`, which was 0. 0 + 1 = 1. `[SYN]` and `[ACK]` flag are set to 1, signaling this is a `[SYNACK]`
+
+6. `Seq = 1`
+
+
+7.
+**seqs:**
+ ```bash
+   4. Seq = 1
+   5. Seq = 1449
+   6. Seq = 2897
+   8. Seq = 4345
+   9. Seq = 5793
+   12.Seq = 7241
+   ```
+
+   **acks:**
+
+   ```bash
+   7. Ack = 1449
+   10.Ack = 2897
+   11.Ack = 4345
+   16.Ack = 5793
+   22.Ack = 7241
+   ```
+
+   $EstimatedRTT=0.875 * EstimatedRTT + 0.125 * SampleRTT$
+
+   ```
+   4. 00.209816
+   5. 00.209816
+   6. 00.209817
+   7. 00.264068
+   8. 00.264169
+   9. 00.264170
+   10.00.264444
+   11.00.264447
+   12.00.264521
+   13.00.264523
+   16.00.316031
+   22.00.318513
+   ```

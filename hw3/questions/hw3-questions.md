@@ -424,29 +424,73 @@ gaia.cs.umass.edu adds 1 to the initial sequence number of `[SYN]`, which was 0.
    22.Ack = 8689
    ```
 
-   $EstimatedRTT=0.875 * EstimatedRTT + 0.125 * SampleRTT$
+  $EstimatedRTT=0.875 * EstimatedRTT + 0.125 * SampleRTT$
 
-|segment|sent time|received time| RTT(sec)|
+|segment|sent time|received time| RTT     |
 |:------|:--------|:------------|:------- |
-|4      |00.209816|00.264068    |         |
-|5      |00.209816|00.264444    |         |
-|6      |00.209817|00.264447    |         |
-|8      |00.264169|00.316031    |         |
-|9      |00.264170|00.318028    |         |
-|12     |00.264521|00.317513    |         |
+|4      |00.209816|00.264068    |0.054252 |
+|5      |00.209816|00.264444    |0.054628 |
+|6      |00.209817|00.264447    |0.054653 |
+|8      |00.264169|00.316031    |0.051862 |
+|9      |00.264170|00.318028    |0.053858 |
+|12     |00.264521|00.318513    |0.053992 |
 
-   ```bash
-   4. 00.209816
-   5. 00.209816
-   6. 00.209817
-   8. 00.264169
-   9. 00.264170
-   12.00.264521
+$EstimatedRTT$ seg 4 = $0.054252$
 
-   7. 00.264068
-   10.00.264444
-   11.00.264447
-   16.00.316031
-   19.00.318028
-   22.00.318513
-   ```
+$EstimatedRTT$ seg 5 = $0.875 * 0.054252 + 0.125 * 0.54628 = 0.115755$
+
+$EstimatedRTT$ seg 6 = $0.875 * 0.115755 + 0.125 * 0.054653 = 0.108117$
+
+$EstimatedRTT$ seg 8 = $0.875 * 0.108117 + 0.125 * 0.051862 =
+0.101085$
+
+$EstimatedRTT$ seg 9 = $0.875 * 0.101085 + 0.125 * 0.054858 =
+0.157021$
+
+$EstimatedRTT$ seg 12 = $0.875 * 0.157021 + 0.125 * 0.053992 =
+0.144142$
+
+8. They're all 1448 bytes in length (1514 for data).
+
+9. First ACK packet (SYN ACK) advertises `Win = 1460`.
+This number grows up to `Win = 46336`. The sender never throttles.
+
+10. ![ws-tcp-10](ws-tcp-10.png)
+As we can see from the time sequence number graph, all sequence numbers acknowledged increase monotonically in relation to time.
+No packets were retransmitted.
+
+11.
+|ACK | acknowledged seqNum | acknowledged data|
+|:-- | :------------------ | :--------------- |
+| 7  | 1449                | 1448             |
+| 10 | 2897                | 1448             |
+| 11 | 4345                | 1448             |
+| 16 | 5793                | 1448             |
+| 19 | 7241                | 1448             |
+| 22 | 8689                | 1448             |
+
+Acknowledged data was steadily 1448 bytes. (acknowledged sequence number increases by 1448 every for every new segment).
+
+12. We can compute the total amount of data by calculating the difference between sequence number of the first TCP segment (1 byte for segment 4) and the acknowledged sequence number of the last ACK (segment 192, ACK 145578 bytes)
+
+$145578 - 1 = 145577$ bytes.
+So we calculate what time was the first TCP send and what time was the last ACK received:
+
+segment 4 = sent at 00.209816
+segment 192 = sent at 00.535381
+
+$00.535381 - 00.209816 = 0.325565$ seconds
+
+Now we'll do:
+
+$$\frac{bytes}{seconds}=\frac{145577\,bytes}{0.325565\,seconds}$$
+
+$447151.8744 = 447.15$ Kbytes/seconds
+
+### TCP Congestion control ###
+
+13. According to the graph, the slow start phase begins at 0 and ends a little before 0.12 seconds. Then congestion takes over.
+During this small interval, the data transferred is only a small fraction of the window size instead of the ideal 1/3.
+
+14. Screenshot:
+![ws-tcp-14](ws-tcp-14.png)

@@ -49,15 +49,13 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         requestType, code, revChecksum, revId, revSequence = struct.unpack('bbHHh',icmpHeader)
         if ID == revId:
             bytesInDouble = struct.calcsize('d')
-            #struct.calcsize(fmt) Return the size of the struct (and hence of the string) corresponding to the given format.
-        #struct.unpack(fmt, buffer[, offset=0]) Unpack the buffer according to the given format. The result is a tuple even if it contains exactly one item. The buffer must contain at least the amount of data required by the format (len(buffer[offset:]) must be at least calcsize(fmt)).
             timeData = struct.unpack('d',recPacket[28:28 + bytesInDouble])[0]
             timeRTT.append(timeReceived - timeData)
             packageRev += 1
             return timeReceived - timeData
         else:
             return "ID does not match"
-        #Fill in end
+    #Fill in end
 
         timeLeft = timeLeft - howLongInSelect
         if timeLeft <= 0:
@@ -95,14 +93,14 @@ def doOnePing(destAddr, timeout):
     icmp = socket.getprotobyname("icmp")
     #SOCK_RAW is a powerful socket type. For more details see:http://sock-raw.org/papers/sock_raw
 
-    #Fill in start
+#Fill in start
     #Create Socket here
     try:
         mySocket = socket.socket(socket.AF_INET, socket.SOCK_RAW, icmp)
     except socket.error, (errno, msg):
         if errno == 1:
             raise socket.error(msg)
-    #Fill in end
+#Fill in end
 
     myID = os.getpid() & 0xFFFF  #Return the current process i
     sendOnePing(mySocket, destAddr, myID)

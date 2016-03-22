@@ -289,7 +289,7 @@ $C$ can go to $W$ and $V$ using $B\rightarrow A\rightarrow W$ and $B\rightarrow 
 
 ---
 # Wireshark Lab #
-## Lab 1 ##
+## Lab 6.01 ##
 
 ### 1. nslookup ###
 
@@ -379,7 +379,7 @@ I used `nslookup www.mit.edu 8.8.8.8` which is google's public DNS address.
 
 ---
 
-## Lab 2 ##
+## Lab 6.0 ##
 
 ### capture trace ###
 
@@ -494,3 +494,47 @@ During this small interval, the data transferred is only a small fraction of the
 
 14. Screenshot:
 ![ws-tcp-14](ws-tcp-14.png)
+
+---
+## Lab 6.1 ##
+
+### UDP packet trace ###
+
+1. ![ws-udp-1](ws-udp-1.png)
+Four fields:
+- Source port
+- Destination port
+- Length
+- Checksum
+
+2.
+|     Header     | Hex Value |
+| :------------- | :-------- |
+|Source Port     |   `07 6c` |
+|Destination Port|   `07 6c` |
+|Length          |   `01 59` |
+|Checksum        |   `61 c0` |
+each hexadecimal digit = 4 bits
+16 bits for each header value (or 2 bytes).
+
+3. $Header + Data = Length$
+4 header fields, each with 2 bytes = 8 bytes total
+8 bytes + 337 bytes of data = 345 bytes for length.
+
+4. Max IP packet size $=2^{16}-1 = 65535$
+$65535 - 8\,bytes$ (for header) $= 65527$
+
+5. $2^{16}-1 = 65535$
+
+6. $0x11$ or $17d$
+ ![ws-udp-6](ws-udp-6.png)
+<br>
+7.
+![ws-udp-7](ws-udp-7.png)
+
+Packets 8 and 10 are DNS queries made over UDP protocol.
+my host (local IP 10.0.0.13) sends a query to 75.75.75.75 (my local DNS server) from port 50251 to port 53.
+
+When this query is replied, source 75.75.75.75, port 53 sends a packet back to 10.0.0.13, port 50251
+
+So, the source and destination port of the first packet are destination and source port of the second packet respectively.

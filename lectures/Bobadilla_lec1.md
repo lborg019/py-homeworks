@@ -92,7 +92,7 @@ Disadvantage: cost
 Wireless Transmission Frequencies:
 * 30Mhz to 16Hz (omnidirectional, broadcast radio)
 * 2.6Hz to 60Ghz (point-to-point, directional, satellite)
-$$3 * 10ˆ{11}\,\,to\,\,2 * 10^{14}$$
+$$3 * 10^{11}\,\,to\,\,2 * 10^{14}$$
 infrared, short distances
 
 #### How can multiple users share a network ###

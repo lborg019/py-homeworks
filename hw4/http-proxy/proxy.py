@@ -58,21 +58,29 @@ while 1:
         if fileExist == "false":  
             c = socket(AF_INET, SOCK_STREAM) # Create a socket on the proxyserver 
             hostn = filename.replace("www.","",1) # google.com
-            #print c.gethostbyname(hostn)
+
+            """
+            import socket
+            dest = socket.gethostbyname(hostn)
+            print dest
+            """
             print hostn
             try: 
                 # Connect to the socket to port 80 
-                # Fill in start. 
+                # Fill in start.
                 c.connect((hostn, 80))
+                print "Proxy connected to webserver's port 80"
                 # Fill in end.
                 # Create a temporary file on this socket and ask port 80 for
                 # the file requested by the client 
-                """ fileobj = c.makefile('r', 0)                
+                fileobj = c.makefile('r', 0)
                 fileobj.write("GET "+"http://" + filename + " HTTP/1.0\n\n")   
+
                 # Read the response into buffer 
                 # Fill in start. 
-                buffer = fileObj.readlines()
+                buffer = fileobj.readlines()
                 # Fill in end.
+
                 # Create a new file in the cache for the requested file.  
                 # Also send the response in the buffer to client socket and the 
                 # corresponding file in the cache 
@@ -82,9 +90,8 @@ while 1:
                     tmpFile.write(data)
                     tcpCliSock.send(data)
                 # Fill in end.
-                """
             except: 
-                print "Illegal request"  
+                print "Illegal request" 
         else: # HTTP response message for file not found 
             # Fill in start. 
             print "404: File not found"

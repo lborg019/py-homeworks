@@ -22,9 +22,7 @@ tcpSerSock = socket(AF_INET, SOCK_STREAM)
 serverPort = 8888 #port proxy server is going to run on
 tcpSerSock.bind(("",serverPort)) #bind port (8888)
 tcpSerSock.listen(4); #server listens for incoming TCP req
-# path = ("/home/luke/Desktop/Bobadilla/py-netcentric/hw4/web/")
-# fileList = os.listdir(path)
-# print(fileList)
+flag = 0
 # Fill in end. 
 while 1: 
     # Start receiving data from the client 
@@ -34,13 +32,17 @@ while 1:
     message = tcpCliSock.recv(1024)
     print message
 
-    # Extract the filename from the given message 
-    print message.split()[1] 
-    filename = message.split()[1].partition("/")[2] 
-    print filename 
-    fileExist = "false" 
-    filetouse = "/" + filename 
-    print filetouse 
+    if not message:
+        flag = 1
+        print 'Received an empty string'
+    else:
+        # Extract the filename from the given message 
+        print message.split()[1] 
+        filename = message.split()[1].partition("/")[2] 
+        print filename 
+        fileExist = "false" 
+        filetouse = "/" + filename 
+        print filetouse 
     
     try: # Check wether the file exist in the cache 
         f = open(filetouse[1:], "r")                       
@@ -84,7 +86,7 @@ while 1:
                 # Create a new file in the cache for the requested file.  
                 # Also send the response in the buffer to client socket and the 
                 # corresponding file in the cache 
-                tmpFile = open(filename,"wb")   
+                tmpFile = open("./"+filename,"wb")   
                 # Fill in start. 
                 for data in buffer:
                     tmpFile.write(data)

@@ -6,13 +6,11 @@ http://www-net.cs.umass.edu/wireshark-labs/Wireshark_Ethernet_ARP_v6.01.pdf
 3. [5 points] Read carefully section 5.7 "Retrospective: A Day in the Life of a Web Page Request" (Page 495) and make a list of all the protocols involved in the scenario described in the section: "a student, Bob, connects a laptop to his school’s Ethernet switch and downloads a web page (say the home page of www.google.com)".
 
 
-4. [30 points] Give an answer for the following questions:
-Chapter 5 Review Questions R3,R5,R8,R9,R14
-Chapter 5 Problems: P1, P5, P11, P31, P32
+# Homework 4 #
 
-# Protocol List: #
+## Protocol List: ##
 
-# Review Questions: #
+## Review Questions: ##
 _Chapter 5:_
 <s>R3</s>, <s>R5</s>, <s>R8</s>, <s>R9</s>, <s>R14</s>
 
@@ -46,7 +44,7 @@ In token-ring, a node can only send the frame when it has the token. In a large 
 
 
 
-# Problems: #
+## Problems: ##
 P1, P5, P11, P31, P32
 
 **P1:**
@@ -187,3 +185,50 @@ $P=4p(1-p)^3$
 13. Router forwards these IP packets to the user PC by encapsulating them into Ethernet frames.
 
 **P32:**
+
+Number of flow pairs $=80$
+Capacity of each link $=10\,Gbps$
+Capacity of the link between TOR switches and hosts $=1\,Gbps$
+
+Each flow traversing over a same link shares the capacity of the link with other flows because each link is shared.
+
+Maximum flow rate determines link capacity required for each flow in the network.
+
+**a.**
+Maximum rate of flow: $$=\frac{Link\ Cap}{Number\,of\,flow\,pairs}$$
+
+$[1\,Gbps=1000\,Mbps]$</br>
+$=\frac{10\,Gbps}{80}=\frac{10,000\,Mbps}{80}=125\,Mbps$
+
+**b.**
+_Highly interconnected topology:_
+
+![f-5-31.png](f-5-31.png)
+
+Every switch in Tier-1 has connection with every switch in Tier-2. Since we only have 4 hosts involved in the network on each host, number of paths between a tier-1 to tier-2 switches is 4.
+
+Maximum rate of flow determines the capacity at which all the data paths are transmitting.
+
+Number of paths $= 4$
+Capacity of each link $= 10\,Gbps$
+Maximum rate of flow $= 4\cdot 10\,Gbps = 40\,Gbps$
+
+**c.**
+_Data center network using Hierarchical topology:_
+
+![f-5-30.png](f-5-30.png)
+
+Number of flow pairs $= 160$
+Capacity of each link $= 10\,Gbps$</br>
+Maximum rate of flow $= \frac{10\,Gbps}{160}$
+$=\frac{10,000\,Mbps}{160} = 62.5\,Mbps$
+
+_Highly interconnected network:_
+
+Every switch in Tier-1 has a connection to every switch in Tier-2. The number of paths from a tier-1 switch to tier-2 switches is 20 because 20 hosts are involved in the network.
+
+Number of paths $=20$
+Capacity of each link $=10\,Gbps$
+Maximum rate of flow $=20\cdot 10\,Gbps = 200\,Gbps$
+
+With $160$ flow pairs, the maximum rate of flow is $200\,Gbps$

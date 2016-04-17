@@ -8,6 +8,108 @@ http://www-net.cs.umass.edu/wireshark-labs/Wireshark_Ethernet_ARP_v6.01.pdf
 
 # Homework 4 #
 
+## Wireshark labs ##
+
+#### Wireshark lab: IP v6.0 ####
+
+**Captured Trace:**
+
+![ws-ip-1.png](ws-ip-1.png)
+
+1. Computer: `10.0.0.13`
+2. ICMP `(0x01)`
+3. Header length: 20 bytes, Total Length: 56. $56-20=36$
+36 bytes in the payload of the IP datagram.
+4. Fragment offset: 0. No fragmentation.
+5. Identification, Time to live and Header checksum.
+6. _Fields that remain constant:_ Version (IPv4 for all), header length (ICMP packets), source IP (always sending from same source), destination, differentiated services (always ICMP type of service class), upper layer protocol.
+Fields that must stay constant match the ones that remained constant.
+_Fields that must change:_
+Identification (IP packets must have different ids), TTL (traceroute increments each subsequent packet), Header Checksum (if header changed, checksum changes too).
+
+7. The IP header Identification fields increment with each ICMP Echo request.
+
+8. Identification: `0x07cd` (1999) TTL: 64
+
+9. TTL remains unchanged because the TTL for the first hop router is the same.
+
+**Fragmentation**
+
+10. Yes.
+
+11.
+
+![ws-ip-2.png](ws-ip-2.png)
+
+The "More fragments" flag is set.
+Length: 1500 bytes.
+
+12.
+![ws-ip-2.1](ws-ip-2.1.png)
+
+The following has fragment offset of 0, "More fragments: not set" (there are no more fragments from this point onwards).
+The offset 1480 indicates it is the remainder of the fragment.
+
+13. Total length, More Fragments and Fragment offset.
+
+![ws-ip-2.2](ws-ip-2.2.png)
+
+
+14. The original request created 2 fragments. 3 packets total.
+15. From 1 to 2: fragment offset.
+From 2 to 3: fragment offset, more fragments, total length.
+
+#### Wireshark lab: ICMP v6.0
+
+![ws-icmp-1](ws-icmp-1.png)
+
+1. My IP: `10.0.0.13`
+Host: `143.89.14.2`
+
+2. Because it is a very simple protocol designed as a session less protocol, not designed for applications.
+
+![ws-icmp-2.png](ws-icmp-2.png)
+
+3. Type: 8 Code: 0. Checksum, Identifier, Sequence Number, Timestamp and Data. 2 bytes for each checksum, sequence number and identifier field
+
+4. Type and code both 0. Checksum, Identifier, Sequence Number, and Data. Also 2 bytes for each checksum, sequence number and identifier field.
+
+**2. ICMP and Traceroute**
+
+![ws-icmp-3](ws-icmp-3.png)
+
+5. Host: `10.0.0.13` Destination: `131.111.150.25`
+
+![ws-icmp-4](ws-icmp-4.png)
+
+6. Since I am running Unix, I can verify that the ICMP IP protocol number is 0x11
+
+7. Yes, same fields.
+
+8.
+![ws-icmp-5](ws-icmp-5.png)
+
+They are different packets. The ICMP contains both the IP header and the first 8 bytes of the original UDP packet request that the error is for.
+
+9.
+
+![ws-icmp-6](ws-icmp-6.png)
+
+They are different in the sense that the last 3 three ICMP packets are message type 0 (echo reply), instead of 11 (TTL expired). This means that for the last ICMP packets the datagrams traveled all the way to the destination host before the Time To Live expired.
+
+10. Since we were tracerouting from North America to Europe (Cambridge - UK), we clearly have a long hop, which is also described by the `***` (meaning waiting time) shown on the console. We start from Miami - FL (kendall.fl.pompano.comcast.net), to Stuart (stuart.fl.pompano.comcast.net). From Stuart we move into Comcast's backbone, Level 3 Communication is going to forward our traffic.
+(network map available @ http://www.level3.com/~/media/files/maps/map_1115_interactive.pdf).
+According to Level 3's map we most likely travel up to New York (miami1.level3.net) and from there we cross the Atlantic to reach the United Kingdom and that is when the longer waiting time starts. The last two routers:
+```bash
+14  c-mi.d-we.net.cam.ac.uk (192.84.5.98)  125.706 ms  123.994 ms  126.437 ms
+15  primary.admin.cam.ac.uk (131.111.150.25)  122.058 ms  121.093 ms  125.966 ms
+```
+are most likely to be in the UK. (cam.ac.uk).
+
+
+#### Wireshark lab: Ethernet ARP v6.01 ####
+
+
 ## Protocol List: ##
 
 ## Review Questions: ##
@@ -45,7 +147,7 @@ In token-ring, a node can only send the frame when it has the token. In a large 
 
 
 ## Problems: ##
-P1, P5, P11, P31, P32
+<s>P1</s>, <s>P5</s>, <s>P11</s>, <s>P31</s>, <s>P32</s>
 
 **P1:**
 Bit pattern: `1110 0110 1001 1101`

@@ -1,15 +1,9 @@
-2.[30 points] Complete the following Wireshark labs:
-http://www-net.cs.umass.edu/wireshark-labs/Wireshark_IP_v6.0.pdf
-http://www-net.cs.umass.edu/wireshark-labs/Wireshark_ICMP_v6.0.pdf
-http://www-net.cs.umass.edu/wireshark-labs/Wireshark_Ethernet_ARP_v6.01.pdf
-
-3. [5 points] Read carefully section 5.7 "Retrospective: A Day in the Life of a Web Page Request" (Page 495) and make a list of all the protocols involved in the scenario described in the section: "a student, Bob, connects a laptop to his school’s Ethernet switch and downloads a web page (say the home page of www.google.com)".
-
-
 # Homework 4 #
-
+lukas_borges
 ## Wireshark labs ##
-
+<s>http://www-net.cs.umass.edu/wireshark-labs/Wireshark_IP_v6.0.pdf</s>
+<s>http://www-net.cs.umass.edu/wireshark-labs/Wireshark_ICMP_v6.0.pdf</s>
+<s>http://www-net.cs.umass.edu/wireshark-labs/Wireshark_Ethernet_ARP_v6.01.pdf</s>
 #### Wireshark lab: IP v6.0 ####
 
 **Captured Trace:**
@@ -106,11 +100,87 @@ According to Level 3's map we most likely travel up to New York (miami1.level3.n
 ```
 are most likely to be in the UK. (cam.ac.uk).
 
-
 #### Wireshark lab: Ethernet ARP v6.01 ####
 
+1.
+![ws-arp-1](ws-arp-1.png)
+![ws-arp-2](ws-arp-2.png)
+
+Source: `78:31:c1:ef:3c:a0`
+
+2.
+Destination: `44:32:c8:57:1e:73`
+No, it is the address of the Router.
+
+3. `0x0800`
+
+4. Around 41 bytes from the start.
+
+5.
+![ws-arp-3.png](ws-arp-3.png)
+
+`44:32:c8:57:1e:73`, address of my router.
+
+6. `78:31:c1:ef:3c:a0` address of my computer.
+
+7. `0x0800` (IPv4)
+
+8.
+![ws-arp-4.png](ws-arp-4.png)
+
+52 bytes
+
+**ARP Caching**
+
+9.
+![ws-arp-5.png](ws-arp-5.png)
+
+IP address, Physical (MAC Address), port, interface scope, status (stale or not) and type (ethernet)
+
+**ARP in Action (from ethereal-trace)**
+
+10.
+
+![arp-trace1.png](arp-trace1.png)
+
+Source: `00:d0:59:a9:3d:68`
+Destination: `ff:ff:ff:ff:ff:ff`
+
+11. `0x0806`, ARP
+
+12. a) ARP opcode field begins 20 bytes from the beginning of the Ethernet frame.
+b) The hex value for opcode within the ARP-payload of the request is `0x0001` for request.
+c) Yes. The ARP message contains `192.168.1.105` for sender.
+d) The field "Target MAC address" set to `00:00:00:00:00:00` to question the machine whose corresponding IP address (192.168.1.1) is queried.
+
+13.
+
+![arp-trace2.png](arp-trace2.png)
+
+a) 20 bytes from the beginning of the Ethernet frame.
+b) reply (2), `0x0002`
+c) Sender MAC Address field containing the Ethernet address `00:06:25:da:af:73` for sender with IP: `192.186.1.1`
+
+14.
+Source: `00:06:25:da:af:73`
+Destination: `00:d0:59:a9:3d:68`
+
+15.
+There is no reply because the machine that captured this trace is not the machine that sent the request. The ARP request is broadcasted. However, ARP reply is sent back directly to sender's Ethernet address.
 
 ## Protocol List: ##
+
+> Bob connects to google.com via school's network.
+
+- ARP so that his computer can be recognized within the local area network (using MAC address).
+- DHCP provides a local IP address to his computer.
+- NAT protocol allows his LAN IP to communicate with public internet IPs.
+- DNS (via UDP messages) so he can convert `google.com` into an IP address.
+- HTTP (via TCP) so that the page can be sent to the user.
+- TCP messages are encapsulated in TCP packets and further on into IP packets.
+- IP packets should follow routing protocols (RIP or OSPF) to eventually arrive at the router in an efficient manner.
+
+
 
 ## Review Questions: ##
 _Chapter 5:_

@@ -124,60 +124,7 @@ $2^64! \rightarrow$ hard to handle.
 We divide the block.
 
 _full block cypher_
-<table>
-<th colspan="8">64 bit input</th>
-<tr>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-</tr>
-<tr>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-</tr>
-<tr>
-  <td>T1</td>
-  <td>T2</td>
-  <td>T3</td>
-  <td>T4</td>
-  <td>T5</td>
-  <td>T6</td>
-  <td>T7</td>
-  <td>T8</td>
-</tr>
-<tr>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-  <td>$\downarrow$</td>
-</tr>
-<tr>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-  <td>8bit</td>
-</tr>
-<tr><td colspan="8">Row 3 Cell 1</td></tr>
-</table>
+![f-8-5](f-8-5.png)
 
 Transformation:
 substitution replace k-bit input blocks with k-bit output blocks

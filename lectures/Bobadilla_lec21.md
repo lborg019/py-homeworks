@@ -54,44 +54,42 @@ A: Leonard *A*ddleman<br>
 
 #### Modular Arithmetic ####
 
-example:<br>
-6am + 7 hours<br>
+example:
+**6am + 7 hours**
+$(6+7)\,mod\,12=1$
+$13=1\,mod\,12$
 
-$(6+7)mod12=1$<br>
-$13=1mod12$
-
-8am + 25 hours<br>
-$(8+25)mod12=$<br>
+**8am + 25 hours**
+$(8+25)mod12=$
 $33mod12=9$
 
-_addition:_<br>
-$[(a\mod\ n) + (b\mod\ n)]\ mod\ n$=<br>
-$(a+b)mod\ n$
+**_addition:_**
+$[(a\,mod\,n)+(b\,mod\,n)]\,mod\,n=$
+$(a+b)mod\,n$
 
-_subtraction:_<br>
-$[(a\ mod\ n)-(b\mod\ n)]\ mod\ n=$<br>
+**_subtraction:_**
+$[(a\,mod\,n)-(b\,mod\,n)]\,mod\,n=$
 $(a-b)mod\ n$
 
-_multiplication:_<br>
-$[(a\ mod\ n)*(b\mod\ n)]\ mod\ n=$<br>
+**_multiplication:_**
+$[(a\,mod\,n)\cdot(b\,mod\,n)]\,mod\,n=$
 $(a*b)mod\ n$
 
-_example:_<br>
-$(5\cdot4)mod\ 3=$<br>
+**_example:_**
+$(5\cdot4)mod\ 3=$
 $20mod\ 3 = 2$
-
-$[(5mod\ 3)\cdot(4mod\ 3)]mod\ 3$<br>
+$[(5mod\ 3)\cdot(4mod\ 3)]mod\ 3$
 $(2\cdot1)mod\ 3$
 
-but if $a=b$, for multiplication we get:<br>
+but if $a=b$, for multiplication we get:
 $[(amod\ n)^d]mod\ n=a^dmod\ n$<br>
-$a = 14$<br>
-$n = 10$<br>
-$d = 2$<br>
+$a = 14$
+$n = 10$
+$d = 2$
 
-$[14mod\ 10]^2mod\ 10=14^2mod\ 10$<br>
-$4^2mod\ 10 = 196mod\ 10$<br>
-$6=6$<br>
+$[14mod\ 10]^2mod\ 10=14^2mod\ 10$
+$4^2mod\ 10 = 196mod\ 10$
+$6=6$
 
 #### RSA preliminaries ####
 - mesage: just a bit pattern

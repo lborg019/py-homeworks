@@ -136,7 +136,67 @@ Whichever station finds the channel idle first sends the frame.
 
 ### Chapter 8 ###
 #### Review Questions ####
-R1, R2, R3, R4, R7, R9, R12, R16, R19, R23
+**R1.**
+
+| Confidentiality | Integrity      |
+| :-------------  | :------------- |
+|Attacker cannot understand original plain text (even if he accesses to the encrypted message)|Receiver can determine whether a message was changed during transmission|
+|only sender and receiver understand original message|ensures original message is not changed during transmission|
+|encryption and decryption ensure confidentiality|checksum is used to achieve integrity|
+|encryption is applied to plain text |checksum is applied to encrypted data|
+
+These are two independent techniques.
+Messages can have either or other independently. An attacker might be able to change a message without understanding what it means, as much as being able to snoop messages without necessarily changing their content.
+
+**R2.** Clients/Servers might require secure information communication (email, ecommerce and online banking)
+
+DNS servers have to exchange host IP addresses in a secure manner
+
+Routers have to exchange routing information securely
+
+**R3.**
+| Symmetric key | Public key |
+| :------------- | :------------- |
+|single secret key encrypts and decrypts data|pair of keys, one for encryption and one for decryption|
+|both sender and receiver know the key|encryption key is available to all, only receiver can decrypt|
+
+**R4.**
+Known-plaintext attack occurs when intruder knows some of the plaintext and its corresponding decrypted text pair. Intruder can come up with a known-plaintext attack according to the example.
+
+**R7.** $n=10,000, a=10,023, b=10,004$
+calculate: $(a\cdot b)mod\,n$
+
+$(a\cdot b)\,mod\,n=[(a\,mod\,n)\cdot(b\,mod\,n)]mod\,n$
+
+$[(10,023\,mod\,10,000)\cdot (10,004\,mod\,10,000)]mod\,10,000$
+
+$=[23\cdot 4]mod\,10,000$
+$=92\,mod\,10,000$
+$=92$
+
+**R9.**
+Two different messages $x$ and $y$ will never equal to each other once hashed. $H(x)\neq H(y)$.
+
+The intruder can never forge the contents of another message $y$ that has same hash value as original message. $(m, H(m))$
+
+Hash provides overall better message integrity check.
+
+ **R12.** _Verifiable:_ It is possible to prove that the document is signed by some specific user. If Alice receives a message and cipher message $(m, K_{B}^-(m))$ encrypted with Bob's private key $K_B(m)$. Alice can decrypt the cipher message using Bob's public key $K_{B}^+$ . The message is verified when $m=K_B^+(K_{B}^-(m))$
+
+ _Non-forgetable:_
+
+ Only Bob has the private key $K_{B}^-$and only whoever holds the private key can decrypt cipher text encrypted with its corresponding public key.
+
+  **R16.** An nonce is a number used to identify whether the sender is live or not. An end-point never repeats an nonce already listed, which helps mitigating replay attacks (intruder using the same number in order to fool the system into thinking it is someone else).
+
+  **R19.** PGP is digitally signed message.
+  Alice encrypts the message digest $(H(m))$ with a private key $(K_{A}^-)$ and sends $(m, K_{A}^-(H(m)))$. Bob receives the digitally signed message, decrypts the signature using Alice's public key $K_{A}^+(K_{A}^-(H(m)))$ and gets the message digest $(H(M))$
+
+  Bob calculates the digest from $(H(m))$. If the message digest computed by Bob is the same as the one computed by his decryption, Bob can be sure the message was create and sent by Alice. PGP does not use MAC for message integrity.
+
+  **R23.**
+  ![q23.png](q23.png)
+   According to the steps listed in the book, in the last step (step6) of SSL handshake when Trudy sends MAC of messages. Trudy's MAC messages will fail to pass the MAC test and Bob will know he is not communicating with Alice.
 
 #### Problems ####
 P1, P3, P4, P7, P8

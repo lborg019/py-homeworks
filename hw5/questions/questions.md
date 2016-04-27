@@ -54,13 +54,66 @@ Destination IP address: `128.119.245.12`
 The destination MAC address of the frame containing the SYN is different from the destination IP address of the IP packet contained within the frame.
 ![ws-wireless-4.png](ws-wireless-4.png)
 
-8.
+8. TCP SYNACK at $t=24.827751$
+MAC Addresses: Receiver, Destination, and Transmitter addresses.
+Host: `91:2a:b0:49:b6:4f` (different from the host used in the frame that sent the TCP SYN. This host wireless interface seems to have two interface addresses).
+Firt-hop router: `00:16:b6:f4:eb:a8`
+Access point: `00:16:b6:f7:1d:51`
+IP address of server sending TCP SYNACK: `128.199.245.12`
+Destination address: `192.169.1.109`
 
 #### Association/Dissociation: ####
 
+9. The only possible frame is at $t=49.609617$ because the host sends a DHCP release to the DHCP server (IP: 192.168.1.1) in the network which the host is exiting. The host sends a frame type=00m subframe type=12 (to deauthenticate).
 
+
+10. First AUTHENTICATION frame from host to AP is at $t=49.638857$
+
+
+11. The host requests association to be open (Open system)
+
+
+12. After a thorough look, there are no replies from AP. The AP is likely to require a key when associating with that AP, which is why it refuses to respond open access requests.
+
+
+13. $t=63.168087$, AUTHENTICATION frame;
+Source: `00:13:02:d1:b6:4f` (wireless host)
+Destination: `00:16:b7:f7:1d:51` (BSS)
+$t=63.169071$, ASSOCIATE RESPONSE
+From BSS `00:16:b7:f7:1d:51`
+to wireless host `00:13:02:d1:b6:4f`
+
+
+14. $t=63.169910$
+ASSOCIATE REQUEST frame
+Source: `00:1302:d1:b6:4f` (wireless host)
+Destination: `00:16:b7:f7:1d:51` (BSS)
+$t=63.192101$
+ASSOCIATE RESPONSE frame
+Source: `00:16:b7:f7:1d:51` (BSS)
+Destination: `00:1302:d1:b6:4f` (wireless host)
+
+
+15. ASSOCIATION REQUEST frame support rates are advertised:
+1, 2, 5.5, 11, 6, 9, 12, 18, 24, 32, 48, and 54 Mbps.
+same for ASSOCIATION RESPONSE.
 
 #### Other Frame Types: ####
+
+16. (Probe Request and Probe Response):
+$t=2.297613$ (Probe Request)
+Source: `00:12:f0:1f:57:13`
+Destination: `ff:ff:ff:ff:ff:ff`
+BSSID: `ff:ff:ff:ff:ff:ff`
+$t=2.300697$ (Probe Response)
+Source: `00:16:b6:f7:1d:51`
+Destination: `00:16:b6:f7:1d:51`
+BSSID: `00:16:b6:f7:1d:51`
+_Purpose:_
+Probe Request: Host uses probe request in active scanning mode to find an AP.
+Probe Response: Access point sends this response to the host sending the request.
+
+### SSL ###
 
 ## Questions ##
 #### Chapter 6 ###

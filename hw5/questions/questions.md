@@ -1,29 +1,20 @@
 # Homework 5 #
 #### lukas_borges ####
 
-1. [15 Points] Programming Assignment: Download and run the simple python implementation of RSA from: https://gist.github.com/JonCooperWorks/5314103#file-rsa-py and answer the following questions:
-
-a) Run the program and enter as prime numbers 17 and 19. What is the public key and the private key?
-b) Give a brief explanation (less than a paragraph) of the following functions from the python code: -gcd(a, b) (line 14)
+a) <s>Run the program and enter as prime numbers 17 and 19. What is the public key and the private key?</s>
+b) <s>Give a brief explanation (less than a paragraph) of the following functions from the python code: -gcd(a, b) (line 14)
 -multiplicative_inverse(e, phi) (line 22)
--is_prime(num) (line 49)
+-is_prime(num) (line 49)</s>
  c) Explain differences and similarities between the RSA algorithm discussed in class (pages 685-686) and the implementation found in the code: generate_keypair (line 59), encrypt(line 86), decrypt(line 94).
 
-2.[25 points] Complete the following Wireshark labs:
 http://www-net.cs.umass.edu/wireshark-labs/Wireshark_802.11_v6.0.pdf
 http://www-net.cs.umass.edu/wireshark-labs/Wireshark_SSL_v6.0.pdf
 
-3. [25 points] Give an answer for the folowing review questions:
+Chapter 6 Review Questions: <s>R1,R2,R5,R7,R8</s>
+Chapter 6 Problems: <s>P1, P5, P6</s>
 
-Chapter 6 Review R1,R2,R5,R7,R8
-Chapter 6 Problems: P1, P5, P6.
-
-[35 points] Give an answer for the folowing review questions:
-
-Chapter 8 Review R1,R2,R3,R4, R7, R9, R12, R16, R19, R23
-Chapter 8 Problems: P1, P3, P4, P7, P8
-
-For #1 include some screenshots of the RSA Python implementation running and answer the questions. For #2 Answer the questions posed in the lab documents and include one screenshot of wireshark working for each lab. For #1, #2, #3, #4 submit evidence of your work through moodle in one report (i.e., as ONE pdf file). The deadline is on Sunday May 1st. No late submissions are allowed for this homework. This homework is worth 9% of the final grade.
+Chapter 8 Review <s>R1,R2,R3,R4, R7, R9, R12, R16, R19, R23</s>
+Chapter 8 Problems: <s>P1, P3, P4, P7, P8</s>
 
 ## RSA encryption: ###
 
@@ -199,4 +190,210 @@ Hash provides overall better message integrity check.
    According to the steps listed in the book, in the last step (step6) of SSL handshake when Trudy sends MAC of messages. Trudy's MAC messages will fail to pass the MAC test and Bob will know he is not communicating with Alice.
 
 #### Problems ####
-P1, P3, P4, P7, P8
+**P1:**
+
+![p1q8](p1ch8.png)
+
+encode:
+> This is an easy problem
+
+**Uasi si mj cmiw lokngch**
+
+decode:
+>rmij’u uamu xyj
+
+**wasn't that fun**
+
+**P3:**
+
+![p3q8](p3ch8.png)
+
+> The quick brown fox jumps over the lazy dog.
+
+No, because in this case an attacker does not know the cipher character for every plain text character.
+
+**P4:**
+![f-8-5](f-8-5.png)
+Supposing the cipher block merely reverses 8 bits:
+11110000 $\rightarrow$ 00001111
+scrambler is "offline"
+
+**a)**
+$n=3$
+64bit input:
+`10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+3 rounds:
+
+_round 1:_
+`00000101 00000101 00000101 00000101 00000101 00000101 00000101 00000101`
+
+_round 2:_
+`10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+
+_round 3:_
+`00000101 00000101 00000101 00000101 00000101 00000101 00000101 00000101`
+
+result: `00000101`
+
+**b)**
+$n=3$
+
+_round 1:_
+input: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+output: `00000101 00000101 00000101 00000101 00000101 00000101 00000101 10000101`
+
+_round 2:_
+input: `00000101 00000101 00000101 00000101 00000101 00000101 00000101 10000101`
+output: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100001`
+
+_round 3:_
+input: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100001`
+output: `00000101 00000101 00000101 00000101 00000101 00000101 00000101 10000101`
+
+result: `00000101 00000101 00000101 00000101 00000101 00000101 00000101 10000101`
+
+**c)** (repeating part a):
+_round 1:_
+input: `00000101 00000101 00000101 00000101 00000101 00000101 00000101 00000101`
+output: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+
+_round 2:_
+input: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+output: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000` (unchanged)
+
+_round 3:_
+input: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+output: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100000` (unchanged)
+
+**d)** (repeating part b):
+
+_round 1:_
+input: `00000101 00000101 00000101 00000101 00000101 00000101 10000101`
+output: `10100001 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+
+_round 2:_
+input: `10000101 00000101 00000101 00000101 00000101 00000101 00000101 00000101`
+output: `10100000 10100000 10100000 10100000 10100000 10100000 10100000 10100001`
+
+_round 3:_
+input: `00000101 00000101 00000101 00000101 00000101 00000101 00000101 10000101`
+after reversion and after 3 rounds:
+output: `10100001 10100000 10100000 10100000 10100000 10100000 10100000 10100000`
+
+**P7:**
+**a)**
+$p=3, q=11$
+RSA:
+$n=p*q$
+$n=3*11=33$
+
+$z=(p-1)*(q-1)$
+$z=(3-1)*(11-1)=20$
+
+$e < n$, no common factors (other than 1) with $z$
+e can be 31, 29, 27, 23, 21, 19, 17, 13, 11, 9 (...)
+for the sake of simplicity, we choose
+$e=9$
+factors of 20: 2, 4, 5, 10
+factor of 9: 3 (no common factors)
+
+$d\,|\,ed \ -1$ is exactly divisible by $z$ or
+$ed\,mod\,z=1$
+
+$9d\,mod\, 20=1$
+
+$d=29$ works because $9 * 29=261$
+$261 - 1 = 260;\,260 \div 20 = 13$ (no remainder)
+
+_encrypt:_
+> dog
+
+$m^e\,mod\, n=ciphertext$
+
+| plain | numeric value | $m^e$ | $(m^e)\,mod\,n$ |
+|:-----:|:-------------:|:-----:|:---------------:|
+|d      |4              |262144 |25               |
+|o      |15             |38443359375|3            |
+|g      |7              |40353607|19              |
+
+**25 3 19**
+
+_decrypt:_
+> 25 3 19
+
+$d=29, n=33$
+
+| cipher |$c^d$  |$m=c^d\,mod\,n$|plain|
+|:------:|:-----:|:-------------:|:---:|
+|25      |$25^29$|         4     |   d |
+|3       |68639377364883|15      |   o |
+|19      |$19^29$|         7     |   g |
+
+**b)**
+| plain | m | m=5bit |
+|:-----:|:-:|:------:|
+|d      |4  |`00100`|
+|o      |15 |`01111`|
+|g      |7  |`00111`|
+
+combining all 5 bit character representations:
+`00100 01111 00111` (15 bit)
+$(001000111100111)_2=4583_{10}$
+
+Apply RSA again:
+
+$m=4583, n=33$
+we'll choose
+$p=43, q = 107$
+
+$n=p\cdot q$
+$=43\cdot 107=4061$
+
+$z=(p-1)\cdot (q-1)$
+$=(43-1)\cdot (107-1)$
+$=42\cdot 106 = 4452$
+
+We'll choose $e=61$ because 61 and 4452 have no common factors (googled).
+
+$d=73$ in the sense that $(61\cdot 73)-1 = 4452$ which is exactly divisible by $z$ (multiplicative inverse)
+
+Ciphertext c = $m^e\, mod\, n$
+$=4583^61\,mod\,4601 = 402$
+
+**P8:**
+$p=5, q=11$
+
+**a)**
+$n=p\cdot q$
+$n=5\cdot 11 = 55$
+
+$z=(p-1)\cdot(q-1)$
+$z=4\cdot10=40$
+
+**b)**
+$e < n$, no common factors (other than 1) with $z$
+$e=3$ satisfies it.
+
+**c)**
+$de=1\,mod\,z$ and $z<160$
+$d\cdot3=1\,mod\,40$
+
+$(d\cdot 3)-1$ must be exactly divisible by $z$, which is 40.
+
+$(3*27)-1 = 80$, and $80\div40$ leaves no remainder.
+
+$d=27$
+
+**d)**
+$m=8$
+$n=55, e=3$
+$c=cipher$
+public key $K(n,e)$
+
+_encrypt:_
+| plain | m^e | $c=m^e\,mod\,n$|
+|:-:|:-:|:-:|
+|8|$8^3=512$|17 |
+
+plain text: 8
+cipher text: 17

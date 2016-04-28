@@ -64,7 +64,8 @@ Destination address: `192.169.1.109`
 
 #### Association/Dissociation: ####
 
-9. The only possible frame is at $t=49.609617$ because the host sends a DHCP release to the DHCP server (IP: 192.168.1.1) in the network which the host is exiting. The host sends a frame type=00m subframe type=12 (to deauthenticate).
+9. The only possible frame is at $t=49.609617$ because the host sends a DHCP release to the DHCP server (IP: 192.168.1.1) in the network which the host is exiting. The host sends a frame type=00m subframe type=12 (to deauthenticate). ![ws-wireless-9-1](ws-wireless-9-1.png)
+![ws-wireless-9-1](ws-wireless-9-2.png)
 
 
 10. First AUTHENTICATION frame from host to AP is at $t=49.638857$
@@ -82,6 +83,7 @@ Destination: `00:16:b7:f7:1d:51` (BSS)
 $t=63.169071$, ASSOCIATE RESPONSE
 From BSS `00:16:b7:f7:1d:51`
 to wireless host `00:13:02:d1:b6:4f`
+![ws-wireless-13.png](ws-wireless-13.png)
 
 
 14. $t=63.169910$
@@ -92,6 +94,7 @@ $t=63.192101$
 ASSOCIATE RESPONSE frame
 Source: `00:16:b7:f7:1d:51` (BSS)
 Destination: `00:1302:d1:b6:4f` (wireless host)
+![ws-wireless14](ws-wireless14.png)
 
 
 15. ASSOCIATION REQUEST frame support rates are advertised:
@@ -114,6 +117,80 @@ Probe Request: Host uses probe request in active scanning mode to find an AP.
 Probe Response: Access point sends this response to the host sending the request.
 
 ### SSL ###
+
+1. ![ws-SSL-1.png](ws-SSL-1.png)
+
+|No.|Frame|   Source     |  Destination |SSL Count|SSL Type|
+|:-:|:---:|:------------:|:------------:|:-------:|:----------:|
+|1  |106  |128.238.38.162|216.75.194.220| 1 |Client Hello|
+|2  |108  |216.75.194.220|128.238.38.162| 1 |Server Hello|
+|3  |111  |216.75.194.220|128.238.38.162| 2 |Server Hello Done|
+|4  |112  |128.238.38.162|216.75.194.220| 3 |Client Key Exchange|
+|5  |113  |216.75.194.220|128.238.38.162| 2 |Change Cipher Spec|
+|6  |114  |128.238.38.162|216.75.194.220| 1 |App Data|
+|7  |122  |216.75.194.220|128.238.38.162| 1 |App Data|
+|8  |127  |216.75.194.220|128.238.38.162| 1 |App Data|
+
+![ws-SSL-1-2.png](ws-SSL-1-2.png)
+
+2.
+| Field | Length|
+| :--: | :---: |
+|Content Type| 1 byte |
+|Version     | 2 bytes|
+|Length      | 2 bytes|
+
+#### ClientHello Record: ####
+
+3. ![ws-SSL-3.png](ws-SSL-3.png)
+Content type: 22
+
+4. ![ws-SSL-4.png](ws-SSL-4.png)
+`66 df 78 4c 04 8c d6 04 35 dc 44 89 89 46 99 09`
+
+
+5. public key: RSA
+symmetric key: RC4
+hash algorithm: MD5
+
+#### ServerHello Record: ####
+
+6. ![ws-SSL-6.png](ws-SSL-6.png)
+public key: RSA
+symmetric key: RC4
+hash algorithm: MD5
+
+
+7. Yes. 32 bits (28 bits of data and 4 bits for time). It is used to prevent playback attacks.
+
+
+8. Yes. The ID lets the client resume the session later.
+
+
+9. This record contains no certificate. The certificate is in another record. The certificate should fit a single Ethernet frame.
+
+#### Client Key Exchange Record: ####
+
+10. ![ws-SSL-10](ws-SSL-10.png)
+Yes. This secret is used to create the master secret. With the master key we can create the session key. It is encrypted by a public key. 120 bytes long.
+
+#### Change Cipher Spec Record (sent by client) / Encrypted Handshake Record: ####
+
+11. It indicates the content of the following SSL record that is to be encrypted. 6 bytes long.
+
+
+12. All handshake messages, MAC addresses are encrypted after concatenation and then sent to the server.
+
+
+13. According to the diagram from before, yes. The server's encrypted handshake has all the handshake messages sent by the server. Other contains messages sent by client.
+
+### Application Data: ####
+
+14. Symmetric encryption is used to encrypt application data. The records containing application data include a MAC. Wireshark does not distinguish between MAC and app data.
+
+
+15. Older versions of Wireshark (2.0.0 particularly) were not able to interpret the cipher spec and challenge for the first Client Hello record.
+
 
 ## Questions ##
 #### Chapter 6 ###

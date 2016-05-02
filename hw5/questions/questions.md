@@ -5,10 +5,10 @@ a) <s>Run the program and enter as prime numbers 17 and 19. What is the public k
 b) <s>Give a brief explanation (less than a paragraph) of the following functions from the python code: -gcd(a, b) (line 14)
 -multiplicative_inverse(e, phi) (line 22)
 -is_prime(num) (line 49)</s>
- c) Explain differences and similarities between the RSA algorithm discussed in class (pages 685-686) and the implementation found in the code: generate_keypair (line 59), encrypt(line 86), decrypt(line 94).
+ <s>c) Explain differences and similarities between the RSA algorithm discussed in class (pages 685-686) and the implementation found in the code: generate_keypair (line 59), encrypt(line 86), decrypt(line 94).</s>
 
-http://www-net.cs.umass.edu/wireshark-labs/Wireshark_802.11_v6.0.pdf
-http://www-net.cs.umass.edu/wireshark-labs/Wireshark_SSL_v6.0.pdf
+<s>http://www-net.cs.umass.edu/wireshark-labs/Wireshark_802.11_v6.0.pdf</s>
+<s>http://www-net.cs.umass.edu/wireshark-labs/Wireshark_SSL_v6.0.pdf</s>
 
 Chapter 6 Review Questions: <s>R1,R2,R5,R7,R8</s>
 Chapter 6 Problems: <s>P1, P5, P6</s>
@@ -21,7 +21,7 @@ Chapter 8 Problems: <s>P1, P3, P4, P7, P8</s>
 1. ![rsa.png](rsa.png)
 a) at $GCD(a,b)$ we find the greatest common divisor between two prime numbers. It is used to make sure that $n$ (product of $p\cdot q$) has no common factors (other than 1) with $e$
 b) In mathematics, the multiplicative inverse of $x$ is $\frac{1}{x}$; because $x \cdot \frac{1}{x} = 1$. It is used in this program to generate the private key, in the sense that the variable $d$ (used to decrypt) when multiplied by $e$ and subtracted 1 $((e\cdot d)-1)$ has to be exactly divisible by $z$ (no remainder).
-c) page 686
+c) Overall this code is very similar to the code discussed in the book. It uses different math specific functions to achieve similar effect as the one proposed by the book. One key difference is that it uses the private key to encrypt the message, and normally we would use the public key. That is okay because public and private key properties are interchangeable according to the desire usage (certification or message encryption).
 
 ## Wireshark Labs ##
 ### 802.11 ###
@@ -119,6 +119,7 @@ Probe Response: Access point sends this response to the host sending the request
 ### SSL ###
 
 1. ![ws-SSL-1.png](ws-SSL-1.png)
+
 
 |No.|Frame|   Source     |  Destination |SSL Count|SSL Type|
 |:-:|:---:|:------------:|:------------:|:-------:|:----------:|

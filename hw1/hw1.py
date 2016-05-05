@@ -11,18 +11,26 @@ def input():
     return cents
 
 def getFractions(cents):
-    # number of nickels
-    # number of quarters
-    # number of dollar
-    nickels  = cents
-    dimes    = (cents) / 10
-    quarters = (cents) / 25
-    dollars  = (cents) / 100
-    print("%s nickel(s)")  % nickels
-    print("%s dime(s)")    % dimes
-    print("%s quarter(s)") % quarters
-    print("%s dollar(s)")  % dollars
 
+    while(cents > 10):
+        if(cents > 100):
+            dollars = cents / 100
+            cents = cents - (dollars * 100)
+            print("%s dollar(s)") % dollars
+        elif (cents > 25):
+            quarters = cents / 25
+            cents = cents - (quarters * 25)
+            print("%s quarter(s)") % quarters
+        elif (cents > 10):
+            dimes = cents / 10
+            cents = cents - (dimes * 10)
+            print("%s dime(s)") % dimes
+
+    if(cents != 0):
+        print("%s cent(s)") % cents
+
+
+# call functions
 amount = input()
 while int(amount) >= 0:
     print("%s cents:" % amount)
